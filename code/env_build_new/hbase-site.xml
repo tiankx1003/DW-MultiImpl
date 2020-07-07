@@ -1,0 +1,27 @@
+<configuration>
+	<property>     
+		<name>hbase.rootdir</name>     
+		<value>hdfs://server01:9000/hbase</value>   
+	</property>
+
+	<property>   
+		<name>hbase.cluster.distributed</name>
+		<value>true</value>
+	</property>
+
+   <!-- 0.98后的新变动，之前版本没有.port,默认端口为60000 -->
+	<property>
+		<name>hbase.master.port</name>
+		<value>16000</value>
+	</property>
+
+	<property>   
+		<name>hbase.zookeeper.quorum</name>
+	     <value>server01,server02,server03</value>
+	</property>
+
+	<property>   
+		<name>hbase.zookeeper.property.dataDir</name>
+	     <value>/opt/module/zookeeper-3.4.10/zkData</value>
+	</property>
+</configuration>
