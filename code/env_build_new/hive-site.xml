@@ -50,15 +50,10 @@
         <name>hive.metastore.event.db.notification.api.auth</name>
         <value>false</value>
     </property>
-    
-    <!-- hive on tez配置 -->
+
     <property>
         <name>hive.execution.engine</name>
-        <value>tez</value>
-    </property>
-    <property>
-        <name>hive.tez.container.size</name>
-        <value>1024</value>
+        <value>mr</value>
     </property>
 
     <!-- hive on spark -->
@@ -75,6 +70,17 @@
     <property>
         <name>spark.master</name>
         <value>spark://server01:7077</value>
+    </property>
+
+    <!-- hive on tez配置 -->
+    <property>
+        <name>hive.execution.engine</name>
+        <value>tez</value>
+    </property>
+
+    <property>
+        <name>hive.tez.container.size</name>
+        <value>1024</value>
     </property>
 
 </configuration>

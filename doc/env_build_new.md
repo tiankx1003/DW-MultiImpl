@@ -19,10 +19,16 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 ```bash
 tar -zxvf /opt/software/apache-hive-3.1.2-bin.tar.gz -C /opt/module/
+# 解决log4j日志冲突
+mv $HIVE_HOME/lib/log4j-slf4j-impl-2.10.0.jar $HIVE_HOME/lib/log4j-slf4j-impl-2.10.0.bak
+cp /opt/software/mysql-connector-java-5.1.48.jar $HIVE_HOME/lib
 vim $HIVE_HOME/conf/hive-site.xml
+vim $HIVE_HOME/bin/hiveservices.sh
+chmod +x $HIVE_HOME/bin/hiveservices.sh
 ```
 
  * [$HIVE_HOME/conf/hive-site.xml](../code/env_build_new/hive-site.xml)
+ * [$HIVE_HOME/bin/hiveservices.sh](../code/env_build_new/hiveservices.sh)
 
 ## tez-0.10.1
 

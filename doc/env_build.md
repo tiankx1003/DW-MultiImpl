@@ -130,7 +130,7 @@ vim $HIVE_HOME/conf/hive-site.xml
 schematool -dbType mysql -initSchema
 hive --service metastore &
 hy 1
-hive1
+hive
 ```
 ### mysql
 ```bash
@@ -216,6 +216,7 @@ export HIVE_AUX_JARS_PATH=/opt/module/hadoop-2.7.2/share/hadoop/common/hadoop-lz
 create table stu(id int,name string);
 insert into stu values(1,'zhangshan');
 select * from stu;
+drop table stu;
 ```
 ### spark compile
 ```bash
