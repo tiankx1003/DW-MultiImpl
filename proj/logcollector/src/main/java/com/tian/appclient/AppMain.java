@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 用户行为日志模拟
+ * 随机假数据
  *
  * @author JARVIS
  * @version 1.0
