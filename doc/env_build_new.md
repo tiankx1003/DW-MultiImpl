@@ -89,10 +89,10 @@ $SPARK_HOME/examples/jars/spark-examples_2.11-2.4.5.jar \
 ```bash
 tar -zxvf /opt/software/zookeeper-3.5.7.tar.gz -C /opt/module/
 xsync zookeeper-3.5.7/
-mkdir -p $ZK_HOME/zkData
-touch $ZK_HOME/zkData/myid
-mv $ZK_HOME/conf/zoo_sample.cfg $ZK_HOME/conf/zoo.cfg
-vim $ZK_HOME/conf/zoo.cfg
+mkdir -p $ZOOKEEPER_HOME/zkData
+touch $ZOOKEEPER_HOME/zkData/myid
+mv $ZOOKEEPER_HOME/conf/zoo_sample.cfg $ZOOKEEPER_HOME/conf/zoo.cfg
+vim $ZOOKEEPER_HOME/conf/zoo.cfg
 xsync zoo.cfg
 
 xcall zkServer.sh start
@@ -111,16 +111,22 @@ server.3=server03:2888:3888
 
 ```bash
 tar -zxvf /opt/software/hbase-1.3.1-bin.tar.gz -C /opt/module
-echo 'export JAVA_HOME=/opt/module/jdk1.6.0_144' >> $HBASE_HOME/conf/hbase-env.sh
+# export HBASE_HOME=/opt/module/hbase-1.3.1
+# export PATH=$PATH:$HBASE_HOME/bin
+mv $HBASE_HOME/lib/slf4j-log4j12-1.7.5.jar $HBASE_HOME/lib/slf4j-log4j12-1.7.5.jar.bak
+echo 'export JAVA_HOME=/opt/module/jdk1.8.0_144' >> $HBASE_HOME/conf/hbase-env.sh
 echo 'export HBASE_MANAGES_ZK=false' >> $HBASE_HOME/conf/hbase-env.sh
 vim $HBASE_HOME/conf/hbase-site.xml
 vim $HBASE_HOME/conf/regionservers
-ln -s /opt/module/hadoop-2.7.2/etc/hadoop/core-site.xml /opt/module/hbase/conf/core-site.xml
-ln -s /opt/module/hadoop-2.7.2/etc/hadoop/hdfs-site.xml /opt/module/hbase/conf/hdfs-site.xml
-xsync hbase/
+ln -s $HADOOP_HOME/etc/hadoop/core-site.xml $HBASE_HOME/conf/core-site.xml
+ln -s $HADOOP_HOME/etc/hadoop/hdfs-site.xml $HBASE_HOME/conf/hdfs-site.xml
+xsync $HBASE_HOME/
 
 hbase-daemon.sh start master
-hbase-daemon.sh start regionserver
+xcall hbase-daemon.sh start regionserver
+
+export HBASE_HOME=/opt/module/hbase-1.3.1
+export PATH=$PATH:$HBASE_HOME/bin
 
 start-hbase.sh
 stop-hbase.sh
@@ -129,3 +135,66 @@ stop-hbase.sh
  * [$HBASE_HOME/conf/hbase-site.xml](../code/env_build_new/hbase-site.xml)
  * [$HBASE_HOME/conf/regionservers](../code/env_build_new/regionservers)
  * [HBase页面http://server01:16010](http://server01:16010)
+
+
+## flume-1.9.0
+```bash
+tar -zxf /opt/software/apache-flume-1.9.0-bin.tar.gz -C /opt/module/
+mv apache-flume-1.9.0-bin/
+rm -fr $FLUME_HOME/lib/guava-11.0.2.jar #兼容hadoop3
+```
+
+```bash
+sudo yum install -y nc
+sudo netstat -tunlp | grep 44444
+#开启Flume监听端口
+#第一种写法
+flume-ng agent --conf $FLUME_HOME/conf/ --name a1 --conf-file $FLUME_HOME/job/flume-netcat-logger.conf -Dflume.root.logger=INFO,console
+#第二种写法
+flume-ng agent -c $FLUME_HOME/conf/ -n a1 -f $FLUME_HOME/job/flume-netcat-logger.conf -Dflume.root.logger=INFO,console
+nc localhost 44444
+```
+
+## kafka_2.11-2.4.1
+
+```bash
+tar -zxvf /opt/software/kafka_2.11-2.4.1.tgz -C /opt/module/
+# export KAFKA_HOME=/opt/module/kafka_2.11-2.4.1
+# export PATH=$PATH:$KAFKA_HOME/bin
+mkdir $KAFKA_HOME/logs
+vim $KAFKA_HOME/config/server.properties
+xsync $KAFKA_HOME/ #修改broker.id
+```
+
+ * [$KAFKA_HOME/config/server.properties](../code/env_build_new/server.properties)
+
+```bash
+xcall kafka-server-start.sh -daemon $KAFKA_HOME/config/server.properties
+xcall kafka-server-stop.sh
+```
+
+```bash
+kafka-topics.sh --list --bootstrap-server
+
+kafka-topics.sh --create --bootstrap-server server01:9092 \
+--topic first --partitions 2 --replication-factor 2
+
+kafka-topics.sh --zookeeper server01:2181/kafka \
+--delete --topic first
+#需要server.properties中设置delete.topic.enable=true否则只是标记删除
+
+kafka-console-producer.sh \
+--broker-list server01:9092 --topic first
+
+kafka-console-consumer.sh \
+--bootstrap-server server01:9092 --from-beginning --topic first
+
+kafka-console-consumer.sh \
+--bootstrap-server server01:9092 --from-beginning --topic first
+#--from-beginning：会把主题中以往所有的数据都读取出来
+
+kafka-topics.sh --bootstrap-server server01:9092 --describe --topic first
+
+kafka-topics.sh --zookeeper server01:2181/kafka --alter --topic first --partitions 6
+```
+
