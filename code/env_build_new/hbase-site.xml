@@ -1,7 +1,7 @@
 <configuration>
 	<property>     
 		<name>hbase.rootdir</name>     
-		<value>hdfs://server01:9000/hbase</value>   
+		<value>${fs.defaultFS}/hbase</value>   
 	</property>
 
 	<property>   
@@ -22,6 +22,6 @@
 
 	<property>   
 		<name>hbase.zookeeper.property.dataDir</name>
-	     <value>/opt/module/zookeeper-3.4.10/zkData</value>
+	     <value>/opt/module/zookeeper-3.5.7/zkData</value>
 	</property>
 </configuration>
