@@ -198,3 +198,26 @@ kafka-topics.sh --bootstrap-server server01:9092 --describe --topic first
 kafka-topics.sh --zookeeper server01:2181/kafka --alter --topic first --partitions 6
 ```
 
+## Sqoop-1.4.6
+
+```bash
+tar -zxf /opt/software/sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz -C /opt/module/
+mv sqoop-1.4.6.bin__hadoop-2.0.4-alpha sqoop-1.4.6
+# SQOOP_HOME=/opt/module/sqoop-1.4.6
+mv $SQOOP_HOME/conf/sqoop-env-template.sh $SQOOP_HOME/conf/sqoop-env.sh
+vim $SQOOP_HOME/conf/sqoop-env.sh
+# jdbc驱动
+cp mysql-connector-java-5.1.48-bin.jar $SQOOP_HOME/lib/
+sqoop help
+sqoop list-databases --connect jdbc:mysql://server01:3306/ --username root --password root
+```
+```sh
+export HADOOP_COMMON_HOME=/opt/module/hadoop-3.1.3
+export HADOOP_MAPRED_HOME=/opt/module/hadoop-3.1.3
+export HIVE_HOME=/opt/module/hive-3.1.2
+export ZOOKEEPER_HOME=/opt/module/zookeeper-3.5.7
+export ZOOCFGDIR=/opt/module/zookeeper-3.5.7/conf
+export HBASE_HOME=/opt/module/hbase-1.3.1
+export HCAT_HOME=/opt/module/sqoop-1.4.6/hcatalog
+export ACCUMULO_HOME=/opt/module/sqoop-1.4.6/accumulo
+```
