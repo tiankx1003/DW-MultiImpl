@@ -174,7 +174,7 @@ xcall kafka-server-stop.sh
 ```
 
 ```bash
-kafka-topics.sh --list --bootstrap-server
+kafka-topics.sh --list --bootstrap-server server01:9092
 
 kafka-topics.sh --create --bootstrap-server server01:9092 \
 --topic first --partitions 2 --replication-factor 2

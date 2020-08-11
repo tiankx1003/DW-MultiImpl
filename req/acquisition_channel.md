@@ -3,7 +3,12 @@
 ### 一、生成虚拟数据
 
 [java生成虚拟数据](../proj/logcollector/src/main/java/com/tian/appclient/AppMain.java)
-[python生成虚拟数据](../code/scripts/python/data_gen.py)
+[python生成虚拟数据](../scripts/python/data_gen.py)
+
+```bash
+java -classpath /opt/files/logcollector-1.0-SNAPSHOT-jar-with-dependencies.jar com.tian.appclient.AppMain > /opt/files/test.log
+# /tmp/logs目录生成日志文件
+```
 
 ### 二、Flume#1采集日志数据
 
@@ -17,6 +22,8 @@
 ### 四、Flume#2消费Kafka数据导入到Hive
 
 
+
+日志数据采集通道脚本
 
 ### 五、Sqoop导入导出数据
 

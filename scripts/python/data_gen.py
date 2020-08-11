@@ -4,7 +4,9 @@ import random
 from chinese_calendar import is_workday
 
 # python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple chinesecalendar
-file_name = './vdata.txt'
+dt=datetime.datetime.now()
+strdt=dt.strftime('%Y%m%d%H%M%S')
+file_name='./vdata' + strdt + '.txt'
 file_obj = open(file_name, 'w')
 file_obj.truncate()
 key1_list = [str]
