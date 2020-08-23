@@ -221,3 +221,9 @@ export HBASE_HOME=/opt/module/hbase-1.3.1
 export HCAT_HOME=/opt/module/sqoop-1.4.6/hcatalog
 export ACCUMULO_HOME=/opt/module/sqoop-1.4.6/accumulo
 ```
+
+
+
+## Oracle 11g
+
+[Oracle 11g](oracle_install.md)
