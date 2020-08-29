@@ -87,3 +87,9 @@ systemctl enable vncserver@:1.service
 vncpasswd
 systemctl start vncserver@:1.service
 systemctl status vncserver@:1.service
+
+[Oracle支持自启动](../code/env_build_new/oracle.sh)]
+
+$ORACLE_HOME/network/admin/listener.ora
+$ORACLE_HOME/network/admin/tnsnames.ora
+
