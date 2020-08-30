@@ -5,16 +5,17 @@ case $1 in
         for i in server03
         do
                 echo " --------启动 $i 消费flume-------"
-                ssh $i "nohup $FLUME_HOME/bin/flume-ng agent -n a1 -c $FLUME_HOME/conf/ -f $FLUME_HOME/job/kafka-flume-hdfs.conf -Dflume.root.logger=INFO,LOGFILE >$FLUME_HOME/logs/log.txt   2>&1 &"
+                ssh $i "nohup $FLUME_HOME/bin/flume-ng agent -n a1 -c $FLUME_HOME/conf/ -f $FLUME_HOME/job/flume02.conf -Dflume.root.logger=INFO,LOGFILE > $FLUME_HOME/logs/flume.log 2>&1 &"
         done
 };;
 "0"){
         for i in server03
         do
                 echo " --------停止 $i 消费flume-------"
-                ssh $i "ps -ef | grep kafka-flume-hdfs | grep -v grep |awk '{print \$2}' | xargs kill"
-		ssh $i "ps -ef | grep kafka-flume-hdfs | grep -v grep |awk '{print \$2}' | xargs kill -9"
+                ssh $i "ps -ef | grep flume02 | grep -v grep |awk '{print $2}' | xargs kill"
                 
         done
 };;
 esac
+
+# nohup /opt/module/flume-1.9.0/bin/flume-ng agent -n a1 -c /opt/module/flume-1.9.0/conf/ -f /opt/module/flume-1.9.0/job/flume02.conf -Dflume.root.logger=INFO,LOGFILE > /opt/module/flume-1.9.0/logs/flume.log 2>&1 &

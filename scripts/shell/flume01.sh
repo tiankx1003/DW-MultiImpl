@@ -13,14 +13,14 @@ case $1 in
         for i in server01 server02
         do
                 echo " --------启动 $i 采集flume-------"
-                ssh $i "nohup flume-ng agent -n a1 -c $FLUME_HOME/conf -f $FLUME_HOME/job/file-flume-kafka.conf -Dflume.root.logger=INFO,LOGFILE >/dev/null 2>&1 &"
+                ssh $i "nohup flume-ng agent -n a1 -c $FLUME_HOME/conf -f $FLUME_HOME/job/flume01.conf -Dflume.root.logger=INFO,LOGFILE >/dev/null 2>&1 &"
         done
 };;	
 "0"){
         for i in server01 server02
         do
                 echo " --------停止 $i 采集flume-------"
-                ssh $i "ps -ef | grep file-flume-kafka | grep -v grep |awk '{print \$2}' | xargs kill"
+                ssh $i "ps -ef | grep flume01 | grep -v grep |awk '{print $2}' | xargs kill"
         done
 
 };;

@@ -188,9 +188,6 @@ kafka-console-producer.sh \
 
 kafka-console-consumer.sh \
 --bootstrap-server server01:9092 --from-beginning --topic first
-
-kafka-console-consumer.sh \
---bootstrap-server server01:9092 --from-beginning --topic first
 #--from-beginning：会把主题中以往所有的数据都读取出来
 
 kafka-topics.sh --bootstrap-server server01:9092 --describe --topic first

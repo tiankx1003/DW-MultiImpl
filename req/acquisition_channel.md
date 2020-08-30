@@ -124,7 +124,28 @@ Flume拦截器
 
 ### 三、Kafka消息队列
 
-[Kafka搭建](../doc/env_build_new.md##Sqoop-1.4.6)
+[Kafka搭建](../doc/env_build_new.md##kafka_2.11-2.4.1)
+
+```sh
+# 新增topic， 启动与事件
+kafka-topics.sh --create --bootstrap-server server01:9092 \
+--topic topic_start --partitions 2 --replication-factor 2
+
+kafka-topics.sh --create --bootstrap-server server01:9092 \
+--topic topic_event --partitions 2 --replication-factor 2
+
+kafka-topics.sh --list --bootstrap-server server01:9092
+
+kafka-console-consumer.sh \
+--bootstrap-server server01:9092 --from-beginning --topic topic_event
+
+kafka-console-consumer.sh \
+--bootstrap-server server01:9092 --from-beginning --topic topic_start
+
+kafka-topics.sh --zookeeper server01:2181/kafka \
+--delete --topic topic_start
+```
+
 
 [Kafka集群启动脚本](../scripts/shell/kaf.sh)
 
