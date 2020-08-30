@@ -100,14 +100,19 @@ java -classpath /opt/files/logcollector-1.0-SNAPSHOT-jar-with-dependencies.jar c
 
 [Flume搭建](../doc/env_build_new.md##flume-1.9.0)
 
-Tialdir Source
-Kafka Channel
+Tialdir Source 支持断点续传
+Kafka Channel 省略了Sink的配置
+
 
 [Flume#1配置](../code/acquisition_channel/flume01.conf)
 
 
 
+ETL， 日志类型区分
 
+[Flume-ETL拦截器](../proj/flume-interceptor/src/main/java/com/tian/flume/interceptor/LogETLInterceptor.java)
+
+[Flume-ETL拦截器](../proj/flume-interceptor/src/main/java/com/tian/flume/interceptor/LogTypeInterceptor.java)
 
 ### 三、Kafka消息队列
 
