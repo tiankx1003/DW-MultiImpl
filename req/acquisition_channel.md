@@ -11,6 +11,7 @@ java -classpath /opt/files/logcollector-1.0-SNAPSHOT-jar-with-dependencies.jar c
 ```
 
 
+
 **埋点日志样式**
 
 ```json
@@ -107,21 +108,39 @@ Kafka Channel 省略了Sink的配置
 [Flume#1配置](../code/acquisition_channel/flume01.conf)
 
 
+Flume拦截器
+**ETL**用于过滤时间戳不合法或者Json不完整的日志
+**日志类型区分**用于将启动日志和事件日志区分开，发往Kafka不同的Topic
+拦截器的Maven工程编译打包放入server01:$FLUME_HOME/lib，分发
 
-ETL， 日志类型区分
 
 [Flume-ETL拦截器](../proj/flume-interceptor/src/main/java/com/tian/flume/interceptor/LogETLInterceptor.java)
 
 [Flume-ETL拦截器](../proj/flume-interceptor/src/main/java/com/tian/flume/interceptor/LogTypeInterceptor.java)
 
+[Flume#1启动脚本](../scripts/shell/flume01.sh)
+
+
+
 ### 三、Kafka消息队列
 
 [Kafka搭建](../doc/env_build_new.md##Sqoop-1.4.6)
 
+[Kafka集群启动脚本](../scripts/shell/kaf.sh)
+
+<!-- Kafka压力测试于集群规划 -->
 
 ### 四、Flume#2消费Kafka数据导入到Hive
 
 
+[Flume#2配置](../code/acquisition_channel/flume02.conf)
+
+[Flume#2启动脚本](../scripts/shell/flume02.sh)
+
+```sh
+# 配置内存参数防止FGC
+echo `JAVA_OPTS="-Xms100m -Xmx2000m -Dcom.sun.management.jmxremote"` >> $FLUME_HOME/conf/flume-env.sh
+```
 
 日志数据采集通道脚本
 
