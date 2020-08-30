@@ -10,9 +10,104 @@ java -classpath /opt/files/logcollector-1.0-SNAPSHOT-jar-with-dependencies.jar c
 # /tmp/logs目录生成日志文件
 ```
 
+
+**埋点日志样式**
+
+```json
+{
+    "ap": "xxxxx", //项目数据来源 app pc
+    "cm": { //common 公共字段
+        "mid": "", // (String) 设备唯一标识
+        "uid": "", // (String) 用户标识
+        "vc": "1", // (String) versionCode，程序版本号
+        "vn": "1.0", // (String) versionName，程序版本名
+        "l": "zh", // (String) language系统语言
+        "sr": "", // (String) 渠道号，应用从哪个渠道来的。
+        "os": "7.1.1", // (String) Android系统版本
+        "ar": "CN", // (String) area区域
+        "md": "BBB100-1", // (String) model手机型号
+        "ba": "blackberry", // (String) brand手机品牌
+        "sv": "V2.2.1", // (String) sdkVersion
+        "g": "", // (String) gmail
+        "hw": "1620x1080", // (String) heightXwidth，屏幕宽高
+        "t": "1506047606608", // (String) 客户端日志产生时的时间
+        "nw": "WIFI", // (String) 网络模式
+        "ln": 0, // (double) lng经度
+        "la": 0 // (double) lat 纬度
+    },
+    "et": [ //事件
+        {
+            "ett": "1506047605364", //客户端事件产生时间
+            "en": "display", //事件名称
+            "kv": { //事件结果，以key-value形式自行定义
+                "goodsid": "236",
+                "action": "1",
+                "extend1": "1",
+                "place": "2",
+                "category": "75"
+            }
+        }
+    ]
+}
+```
+
+**示例日志**
+```json
+1540934156385|{ //时间戳|日志
+    "ap": "gmall",
+    "cm": {
+        "uid": "1234",
+        "vc": "2",
+        "vn": "1.0",
+        "la": "EN",
+        "sr": "",
+        "os": "7.1.1",
+        "ar": "CN",
+        "md": "BBB100-1",
+        "ba": "blackberry",
+        "sv": "V2.2.1",
+        "g": "abc@gmail.com",
+        "hw": "1620x1080",
+        "t": "1506047606608",
+        "nw": "WIFI",
+        "ln": 0
+    },
+    "et": [
+        {
+            "ett": "1506047605364", //客户端事件产生时间
+            "en": "display", //事件名称
+            "kv": { //事件结果，以key-value形式自行定义
+                "goodsid": "236",
+                "action": "1",
+                "extend1": "1",
+                "place": "2",
+                "category": "75"
+            }
+        },
+        {
+            "ett": "1552352626835",
+            "en": "active_background",
+            "kv": {
+                "active_source": "1"
+            }
+        }
+    ]
+}
+```
+
+
 ### 二、Flume#1采集日志数据
 
 [Flume搭建](../doc/env_build_new.md##flume-1.9.0)
+
+Tialdir Source
+Kafka Channel
+
+[Flume#1配置](../code/acquisition_channel/flume01.conf)
+
+
+
+
 
 ### 三、Kafka消息队列
 
