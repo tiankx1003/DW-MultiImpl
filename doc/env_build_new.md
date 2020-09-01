@@ -224,3 +224,202 @@ export ACCUMULO_HOME=/opt/module/sqoop-1.4.6/accumulo
 ## Oracle 11g
 
 [Oracle 11g](oracle_install.md)
+
+## lzo-0.4.21
+
+#### 下载、安装、编译LZO
+```sh
+# 配置maven
+
+sudo yum -y install gcc-c++ lzo-devel zlib-devel autoconf automake libtool
+
+# 
+wget http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
+tar -zxvf lzo-2.10.tar.gz
+cd lzo-2.10
+./configure -prefix=/usr/local/hadoop/lzo/
+make
+make install
+```
+
+#### 编译hadoop-lzo源码
+```sh
+wget https://github.com/twitter/hadoop-lzo/archive/master.zip
+unzip master.zip
+vim hadoop-lzo-master/pom.xml
+# 修改hadoop.current.version为对应版本 3.1.3
+
+# 声明两个临时环境变量
+export C_INCLUDE_PATH=/usr/local/hadoop/lzo/include
+export LIBRARY_PATH=/usr/local/hadoop/lzo/lib 
+
+cd hadoop-lzo-master
+mvn package -Dmaven.test.skip=true
+
+ll target/hadoop-lzo-0.4.21-SNAPSHOT.jar
+```
+
+
+#### 配置支持lzo
+```sh
+mv hadoop-lzo-0.4.21-SNAPSHOT.jar hadoop-lzo-0.4.21.jar
+cp hadoop-lzo-0.4.21.jar $HADOOP_HOME/share/hadoop/common/
+xsync $HADOOP_HOME/share/hadoop/common/
+vim $HADOOP_HOME/etc/hadoop/core-site.xml
+# 添加配置
+xsync $HADOOP_HOME/etc/hadoop/core-site.xml
+```
+
+```xml
+    <property>
+        <name>io.compression.codecs</name>
+        <value>
+            org.apache.hadoop.io.compress.GzipCodec,
+            org.apache.hadoop.io.compress.DefaultCodec,
+            org.apache.hadoop.io.compress.BZip2Codec,
+            org.apache.hadoop.io.compress.SnappyCodec,
+            com.hadoop.compression.lzo.LzoCodec,
+            com.hadoop.compression.lzo.LzopCodec
+        </value>
+    </property>
+
+    <property>
+        <name>io.compression.codec.lzo.class</name>
+        <value>com.hadoop.compression.lzo.LzoCodec</value>
+    </property>
+```
+
+#### 测试
+```sh
+# 手动为压缩文件创建索引
+hadoop jar $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.21.jar com.hadoop.compression.lzo.DistributedLzoIndexer big_file.lzo
+
+
+
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-3.1.3-tests.jar TestDFSIO -clean
+
+```
+
+```sql
+use dw;
+create table testLZO(id bigint, time bigint, uid string, keyword string, url_rank int, click_num int, click_url string) row format delimited fields terminated by '\t' STORED AS
+INPUTFORMAT 'com.hadoop.mapred.DeprecatedLzoTextInputFormat'
+OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat';
+
+
+
+```
+
+
+
+core-site.xml
+
+```xml
+<!-- 2020-9-1 14:18:36 支持LZO -->
+<!-- 声明可用的压缩算法的编/解码器 -->
+    <property>
+        <name>io.compression.codecs</name>
+        <value>
+            org.apache.hadoop.io.compress.GzipCodec,
+            org.apache.hadoop.io.compress.DefaultCodec,
+            org.apache.hadoop.io.compress.DeflateCodec,
+            org.apache.hadoop.io.compress.BZip2Codec,
+            org.apache.hadoop.io.compress.SnappyCodec,
+            org.apache.hadoop.io.compress.Lz4Codec,
+            com.hadoop.compression.lzo.LzoCodec,
+            com.hadoop.compression.lzo.LzopCodec
+        </value>
+        <description>
+            A comma-separated list of the compression codec classes that can
+            be used for compression/decompression. In addition to any classes specified
+            with this property (which take precedence), codec classes on the classpath
+            are discovered using a Java ServiceLoader.
+        </description>
+    </property>
+
+    <!-- 配置lzo编解码器相关参数 -->
+    <property>
+        <name>io.compression.codec.lzo.class</name>
+        <value>com.hadoop.compression.lzo.LzoCodec</value>
+    </property>
+```
+
+
+mapred-site.xml
+```xml
+<!-- 2020-9-1 14:18:36 支持LZO -->
+<!-- map输出是否压缩 -->
+    <!-- 默认值:false -->
+    <property>
+        <name>mapreduce.map.output.compress</name>
+        <value>true</value>
+        <description>
+            Should the outputs of the maps be compressed before being
+            sent across the network. Uses SequenceFile compression.
+        </description>
+    </property>
+    <!-- 设置map输出压缩所使用的对应压缩算法的编解码器,此处设置为LzoCodec,生成的文件后缀为.lzo_deflate -->
+    <!-- 默认值:org.apache.hadoop.io.compress.DefaultCodec -->
+    <property>
+        <name>mapreduce.map.output.compress.codec</name>
+        <value>com.hadoop.compression.lzo.LzoCodec</value>
+        <description>
+            If the map outputs are compressed, how should they be compressed?
+        </description>
+    </property>
+    <!-- 设置MR job最终输出文件是否压缩 -->
+    <!-- 默认值:false -->
+    <property>
+        <name>mapreduce.output.fileoutputformat.compress</name>
+        <value>true</value>
+        <description>Should the job outputs be compressed?
+        </description>
+    </property>
+    <!-- 设置MR job最终输出文件所使用的压缩算法对应的编解码器,此处设置为LzoCodec,生成的文件后缀为.lzo_deflate -->
+    <!-- 默认值:org.apache.hadoop.io.compress.DefaultCodec -->
+    <property>
+        <name>mapreduce.output.fileoutputformat.compress.codec</name>
+        <value>com.hadoop.compression.lzo.LzoCodec</value>
+        <description>If the job outputs are compressed, how should they be compressed?
+        </description>
+    </property>
+    <!-- 设置序列文件的压缩格式 -->
+    <!-- 默认值:RECORD -->
+    <property>
+        <name>mapreduce.output.fileoutputformat.compress.type</name>
+        <value>BLOCK</value>
+        <description>If the job outputs are to compressed as SequenceFiles, how should
+               they be compressed? Should be one of NONE, RECORD or BLOCK.
+        </description>
+    </property>
+```
+
+hive-site.xml
+
+```xml
+<!-- 2020-9-1 14:18:36 支持LZO -->
+<!-- 设置hive语句执行输出文件是否开启压缩,具体的压缩算法和压缩格式取决于hadoop中
+    设置的相关参数 -->
+    <!-- 默认值:false -->
+    <property>
+        <name>hive.exec.compress.output</name>
+        <value>true</value>
+        <description>
+            This controls whether the final outputs of a query (to a local/HDFS file or a Hive table) 
+            is compressed. 
+            The compression codec and other options are determined from Hadoop config variables 
+            mapred.output.compress*
+        </description>
+    </property>
+    <!-- 控制多个MR Job的中间结果文件是否启用压缩,具体的压缩算法和压缩格式取决于hadoop中
+    设置的相关参数 -->
+    <!-- 默认值:false -->
+    <property>
+        <name>hive.exec.compress.intermediate</name>
+        <value>true</value>
+        <description>
+            This controls whether intermediate files produced by Hive between multiple map-reduce jobs are compressed. 
+            The compression codec and other options are determined from Hadoop config variables mapred.output.compress*
+        </description>
+    </property>
+```
