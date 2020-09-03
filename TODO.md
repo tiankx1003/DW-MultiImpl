@@ -8,11 +8,13 @@
 * [x] kafka测试 2020-08-11 21:57:58
 * [x] 生成用户行为日志虚拟数据 2020-08-11 22:42:20
 * [x] LogServer-Flume-Kafka-Flume-Hive 2020-9-3 10:34:17
-* [ ] 生成投资虚拟数据 2020-08-11 22:42:24
+* [x] ods层加载数据并为lzo创建索引
+* [ ] dwd层UDF函数的编写与注册
 * [ ] 生成日志--采集--消费--导入hive--分层处理
 * [ ] Spark处理离线需求
 * [ ] 电商数仓需求
 * [ ] 在线教育需求
+* [ ] 生成投资虚拟数据
 * [ ] 投资数据分析
 * [ ] realtime with SparkStreaming
 * [ ] realtime with StructuredStreaming
