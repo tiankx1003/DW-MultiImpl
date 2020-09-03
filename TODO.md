@@ -7,7 +7,7 @@
 * [x] HBase Web页面连接失败 2020-08-07 01:13:50
 * [x] kafka测试 2020-08-11 21:57:58
 * [x] 生成用户行为日志虚拟数据 2020-08-11 22:42:20
-* [ ] LogServer-Flume-Kafka-Flume-Hive
+* [x] LogServer-Flume-Kafka-Flume-Hive 2020-9-3 10:34:17
 * [ ] 生成投资虚拟数据 2020-08-11 22:42:24
 * [ ] 生成日志--采集--消费--导入hive--分层处理
 * [ ] Spark处理离线需求

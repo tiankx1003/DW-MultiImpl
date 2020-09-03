@@ -158,6 +158,9 @@ kafka-topics.sh --zookeeper server01:2181/kafka \
 
 [Flume#2启动脚本](../scripts/shell/flume02.sh)
 
+* *注意flume的guava版本要和hadoop的guava版本保持一直，使用最新的，否则hdfs sink会报错*
+[guava版本问题报错](../code/acquisition_channel/flume-err.log)
+
 ```sh
 # 配置内存参数防止FGC
 echo `JAVA_OPTS="-Xms100m -Xmx2000m -Dcom.sun.management.jmxremote"` >> $FLUME_HOME/conf/flume-env.sh
