@@ -137,10 +137,10 @@ stop-hbase.sh
  * [HBase页面http://server01:16010](http://server01:16010)
 
 
-## flume-1.9.0
+## flume-1.7.0
 ```bash
-tar -zxf /opt/software/apache-flume-1.9.0-bin.tar.gz -C /opt/module/
-mv apache-flume-1.9.0-bin/
+tar -zxf /opt/software/apache-flume-1.7.0-bin.tar.gz -C /opt/module/
+mv apache-flume-1.7.0-bin/
 rm -fr $FLUME_HOME/lib/guava-11.0.2.jar #兼容hadoop3
 ```
 
@@ -179,8 +179,7 @@ kafka-topics.sh --list --bootstrap-server server01:9092
 kafka-topics.sh --create --bootstrap-server server01:9092 \
 --topic first --partitions 2 --replication-factor 2
 
-kafka-topics.sh --zookeeper server01:2181/kafka \
---delete --topic first
+kafka-topics.sh --zookeeper server01:2181/kafka --delete --topic first
 #需要server.properties中设置delete.topic.enable=true否则只是标记删除
 
 kafka-console-producer.sh \
@@ -422,4 +421,16 @@ hive-site.xml
             The compression codec and other options are determined from Hadoop config variables mapred.output.compress*
         </description>
     </property>
+
+    <!-- 解决inert数据无法查询问题 -->
+    <property>
+        <name>mapred.output.compression.codec</name>
+        <value>com.hadoop.compression.lzo.LzopCodec</value>
+        <description>
+            解决insert查询为空的问题
+        </description>
+    </property>
 ```
+
+set hive.exec.compress.output=true;
+set mapred.output.compression.codec=com.hadoop.compression.lzo.LzopCodec;

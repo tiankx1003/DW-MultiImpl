@@ -99,7 +99,7 @@ java -classpath /opt/files/logcollector-1.0-SNAPSHOT-jar-with-dependencies.jar c
 
 ### 二、Flume#1采集日志数据
 
-[Flume搭建](../doc/env_build_new.md##flume-1.9.0)
+[Flume搭建](../doc/env_build_new.md##flume-1.7.0)
 
 Tialdir Source 支持断点续传
 Kafka Channel 省略了Sink的配置

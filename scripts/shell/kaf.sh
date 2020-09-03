@@ -18,4 +18,16 @@ case $1 in
                 echo $?
         done
 };;
+"list"){
+        kafka-topics.sh --list --bootstrap-server server01:9092
+};;
+"add"){
+        kafka-topics.sh --create --bootstrap-server server01:9092 --topic $2 --partitions 2 --replication-factor 2
+};;
+"del"){
+        kafka-topics.sh --zookeeper server01:2181/kafka --delete --topic $2
+};;
+"print"){
+        kafka-console-consumer.sh --bootstrap-server server01:9092 --from-beginning --topic $2
+};;
 esac
