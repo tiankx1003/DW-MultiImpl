@@ -437,3 +437,51 @@ hive-site.xml
 
 set hive.exec.compress.output=true;
 set mapred.output.compression.codec=com.hadoop.compression.lzo.LzopCodec;
+
+
+```xml
+<property>
+    <name>mapreduce.map.output.compress</name>
+    <value>true</value>
+</property>
+<property>
+    <name>mapreduce.map.output.compress.codec</name>
+    <value>org.apache.hadoop.io.compress.SnappyCodec</value>
+</property>
+<property>
+    <name>mapreduce.output.fileoutputformat.compress</name>
+    <value>true</value>
+</property>
+<property>
+    <name>mapreduce.output.fileoutputformat.compress.codec</name>
+    <value>org.apache.hadoop.io.compress.BZip2Codec</value>
+</property>
+```
+
+```xml
+<!--启用map中间文件压缩-->
+<property>
+    <name>mapreduce.map.output.compress</name>
+    <value>true</value>
+</property>
+    <!--启用map中间压缩类-->
+    <property>
+        <name>mapred.map.output.compression.codec</name>
+        <value>com.hadoop.compression.lzo.LzopCodec</value>
+    </property>
+<!--启用mapreduce文件压缩-->
+<property>
+    <name>mapreduce.output.fileoutputformat.compress</name>
+    <value>true</value>
+</property>
+<!--启用mapreduce压缩类-->
+<property>
+   <name>mapreduce.output.fileoutputformat.compress.codec</name>
+   <value>com.hadoop.compression.lzo.LzopCodec</value>
+</property>
+    <!--配置Jar包-->
+    <property>
+        <name>mapred.child.env</name>
+        <value>LD_LIBRARY_PATH=/usr/local/hadoop/lzo/lib</value>
+    </property>
+```

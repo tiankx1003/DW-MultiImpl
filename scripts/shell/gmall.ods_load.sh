@@ -16,8 +16,8 @@ hadoop=$HADOOP_HOME/bin/hadoop
 if [ -n "$1" ] ;then
    do_date=$1
 else 
-	# do_date=`date -d "-1 day" +%F`
-	do_date=`date -d "-0 day" +%F`
+    # do_date=`date -d "-1 day" +%F`
+    do_date=`date -d "-0 day" +%F`
 fi 
 
 echo "===日志日期为 $do_date==="
@@ -29,8 +29,8 @@ load data inpath '/origin_data/gmall/log/topic_event/$do_date' into table "$APP"
 $hive -e "$sql"
 
 # 为lzo压缩文件创建索引
-hadoop jar $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.21.jar com.hadoop.compression.lzo.DistributedLzoIndexer /warehouse/gmall/ods/ods_start_log/dt=$do_date
-hadoop jar $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.21.jar com.hadoop.compression.lzo.DistributedLzoIndexer /warehouse/gmall/ods/ods_event_log/dt=$do_date
+# hadoop jar $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.21.jar com.hadoop.compression.lzo.DistributedLzoIndexer /warehouse/gmall/ods/ods_start_log/dt=$do_date
+# hadoop jar $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.21.jar com.hadoop.compression.lzo.DistributedLzoIndexer /warehouse/gmall/ods/ods_event_log/dt=$do_date
 
 ch="
 select 'data checking ...';
