@@ -141,7 +141,10 @@ stop-hbase.sh
 ```bash
 tar -zxf /opt/software/apache-flume-1.7.0-bin.tar.gz -C /opt/module/
 mv apache-flume-1.7.0-bin/
+# 替换guava
 rm -fr $FLUME_HOME/lib/guava-11.0.2.jar #兼容hadoop3
+cp $HADOOP_HOME/share/hadoop/common/lib/guava-27.0-jre.jar $FLUME_HOME/lib
+xsync $FLUME_HOME/lib
 ```
 
 ```bash
