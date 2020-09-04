@@ -14,6 +14,7 @@ fi
 
 sql="
 use $APP;
+set hive.execution.engine=mr;
 set hive.exec.dynamic.partition.mode=nonstrict;
 
 insert overwrite table "$APP".dwd_base_event_log partition(dt='$do_date')

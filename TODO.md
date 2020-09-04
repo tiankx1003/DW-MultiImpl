@@ -10,6 +10,7 @@
 * [x] LogServer-Flume-Kafka-Flume-Hive 2020-9-3 10:34:17
 * [x] ods层加载数据并为lzo创建索引
 * [ ] dwd层UDF函数的编写与注册
+* [ ] 解决Hive on Spark无法使用UDF
 * [ ] 生成日志--采集--消费--导入hive--分层处理
 * [ ] 数仓表支持压缩
 * [ ] Spark处理离线需求
