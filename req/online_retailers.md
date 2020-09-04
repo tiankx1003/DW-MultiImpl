@@ -40,11 +40,12 @@ hadoop fs -put /opt/files/hivefunction-1.0-SNAPSHOT.jar /user/hive/jars
 ```
 ```sql
 -- 注册函数（永久）， 注册时注意库名
-create function gmall.base_analizer 
+use gmall;
+create function base_analizer 
 as 'com.tian.udf.BaseFieldUDF' 
 using jar 'hdfs://server01:8020/user/hive/jars/hivefunction-1.0-SNAPSHOT.jar';
 
-create function gmall.flat_analizer 
+create function flat_analizer 
 as 'com.tian.udtf.EventJsonUDTF' 
 using jar 'hdfs://server01:8020/user/hive/jars/hivefunction-1.0-SNAPSHOT.jar'; 
 ```

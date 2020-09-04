@@ -28,11 +28,12 @@ create external table dwd_start_log
     partitioned by (dt string)
     stored as parquet
     location '/warehouse/gmall/dwd/dwd_start_log/'
-    tblproperties ('parquet.compression' = 'lzo');
+    -- tblproperties ('parquet.compression' = 'lzo')
+;
 
 
 -- 向表中导入数据
-insert overwrite table dwd_start_log partition (dt = '2020-09-03')
+insert overwrite table dwd_start_log partition (dt = '2020-09-04')
 select get_json_object(line, '$.mid')          as mid_id,
        get_json_object(line, '$.uid')          as user_id,
        get_json_object(line, '$.vc')           as version_code,
@@ -57,7 +58,7 @@ select get_json_object(line, '$.mid')          as mid_id,
        get_json_object(line, '$.detail')       as detail,
        get_json_object(line, '$.extend1')      as extend1
 from ods_start_log
-where dt = '2020-09-03';
+where dt = '2020-09-04';
 
 -- 验证
 select *
