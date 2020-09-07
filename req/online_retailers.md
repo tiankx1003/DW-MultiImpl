@@ -15,20 +15,37 @@
 
 原始数据，保持原貌不作处理
 
-[ods建表](../code/sql/gmall.ods.sql)
-
-[ods加载数据](../scripts/shell/gmall.ods_load.sh)
-
-
 #### DWD
 data warehouse detail
 
 结构和粒度不变，对空值、脏数据、超限数据作清洗
 
+
+#### DWS
+data warehouse service
+
+轻度汇总，针对主体聚合到当日的粒度
+以某个维度为线索，组成跨主题的宽表
+
+#### ADS
+application data storage
+
+存放最终指标数据
+
+
+
+## 需求
+
+
+### 用户行为数仓
+
+[ods建表](../code/sql/gmall.ods.sql)
+[ods加载数据](../scripts/shell/gmall.ods_load.sh)
+
+json字符串展开成每个字段
 [dwd_start建表](../code/sql/gmall.dwd_start.sql)
 [dwd_base建表](../code/sql/gmall.dwd_base.sql)
 [dwd_event建表](../code/sql/gmall.dwd_event.sql)
-
 [UDF自定义函数](../proj/hivefunction/src/main/java/com/tian/udf/BaseFieldUDF.java)
 [UDTF自定义函数](../proj/hivefunction/src/main/java/com/tian/udtf/EventJsonUDTF.java)
 
@@ -67,16 +84,33 @@ using jar 'hdfs://server01:8020/user/hive/jars/hivefunction-1.0-SNAPSHOT.jar';
 export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 ```
 
-### DWS
-data warehouse service
 
-轻度汇总，针对主体聚合到当日的粒度
-以某个维度为线索，组成跨主题的宽表
+<!-- 
+活跃
+新增
+留存
+沉默
+流失
+回流 -->
 
-#### ADS
-application data storage
 
-存放最终指标数据
+[活跃设备明细 dws_uv](../code/sql/gmall.dws_uv.sql)
+[每日新增设备明细](../code/sql/gmall.dws_new_mid.sql)
+每日留存用户明细
+
+
+活跃设备数
+每日新增设备
+留存用户数、比例
+沉默用户数
+流失用户数
+本周回流用户数
+时间区间内连续n天登陆
+
+
+
+### 系统业务数仓
+
 
 
 
