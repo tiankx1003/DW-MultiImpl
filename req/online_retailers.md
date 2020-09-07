@@ -96,8 +96,12 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 
 [活跃设备明细 dws_uv](../code/sql/gmall.dws_uv.sql)
 [每日新增设备明细](../code/sql/gmall.dws_new_mid.sql)
-每日留存用户明细
+[每日留存用户明细](../code/sql/gmall.dws_user_retation.sql)
 
+
+
+
+##### 指标
 
 活跃设备数
 每日新增设备
@@ -110,6 +114,38 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 
 
 ### 系统业务数仓
+
+
+hadoop支持snappy压缩
+Sqoop环境部署
+
+MySQL存储过程生成虚拟数据
+
+
+
+ODS建表
+Sqoop同步脚本
+
+DWD建表
+DWD调度脚本
+
+DWS用户行为宽表
+DWS用户购买明细宽表
+
+<!-- 拉链表 -->
+
+GMV成交额
+漏斗分析
+品牌复购率
+
+
+数据可视化
+
+MySQL建表
+Sqoop导出
+
+Azkaban调度
+
 
 
 

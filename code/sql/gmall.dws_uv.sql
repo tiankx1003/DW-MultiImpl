@@ -1,4 +1,5 @@
 -- 每日活跃设备明细
+use gmall;
 drop table if exists dws_uv_detail_day;
 create external table dws_uv_detail_day
 (
