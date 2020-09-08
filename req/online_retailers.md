@@ -120,34 +120,37 @@ init_data(do_date_string VARCHAR(20), order_incr_num INT,user_incr_num INT, sku_
 
 -- 案例测试
 -- 生成日期2019年2月10日的数据、订单1000个、用户200个、商品sku300个、删除原始数据
-CALL init_data('2019-08-28',1000,200,300,TRUE);
+call init_data('2020-09-04',1000,200,300,true);
 
 -- 查看结果
-SELECT * from base_category1;
-SELECT * from base_category2;
-SELECT * from base_category3;
+select * from base_category1;
+select * from base_category2;
+select * from base_category3;
 
-SELECT * from order_info;
-SELECT * from order_detail;
+select * from order_info;
+select * from order_detail;
 
-SELECT * from sku_info;
-SELECT * from user_info;
+select * from sku_info;
+select * from user_info;
 
-SELECT * from payment_info;
+select * from payment_info;
 ```
 
 
 [hadoop支持snappy压缩](../doc/env_build_new.md##Snappy)
 [Sqoop环境部署](../doc/env_build_new.md##Sqoop-1.4.6)
 
-ODS建表
-Sqoop同步脚本
+[ODS建表](../code/sql/gmall.ods_db.sql)
+[Sqoop同步脚本](../scripts/shell/gmall.ods_db.sh)
 
-DWD建表
-DWD调度脚本
+ * Sqoop导入到hdfs目录，load数据到表
+ * 尝试直接Sqoop直接导入到Hive表
 
-DWS用户行为宽表
-DWS用户购买明细宽表
+[DWD建表](../code/sql/gmall.dwd_db.sql)
+[DWD调度脚本]
+
+[DWS用户行为宽表](../code/sql/gmall.dws_db.sql)
+[DWS用户购买明细宽表](../code/sql/gmall.dws_db.sql)
 
 <!-- 拉链表 -->
 
