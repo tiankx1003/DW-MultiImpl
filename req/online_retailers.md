@@ -33,6 +33,9 @@ application data storage
 存放最终指标数据
 
 
+## 数仓理论基础
+
+ * [数仓理论基础](../doc/data_warehouse_theory.md)
 
 ## 需求
 
@@ -89,26 +92,53 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 [每日留存用户明细](../code/sql/gmall.dws_user_retation.sql)
 
 
-活跃设备数
-每日新增设备
-留存用户数、比例
-沉默用户数
-流失用户数
-本周回流用户数
-时间区间内连续n天登陆
+[活跃设备数](../code/sql/gmall.ads_uv.sql)
+[每日新增设备](../code/sql/gmall.ads_new_mid.sql)
+[留存用户数、比例](../code/sql/gmall.ads_user_retation.sql)
+[沉默用户数](../code/sql/gmall.ads_silent.sql)
+[流失用户数](../code/sql/gmall.ads_wastage.sql)
+[本周回流用户数](../code/sql/gmall.ads_back.sql)
+[时间区间内连续n天登陆](../code/sql/gmall.ads_continuty_wk.sql)
 
 
 
 ### 系统业务数仓
 
-[数仓理论基础](../doc/data_warehouse_theory.md)
+[MySQL建表](../code/sql/gmall.mysql_create.sql)
+[MySQL函数](../code/sql/gmall.mysql_func.sql)
+[MySQL插入数据](../code/sql/gmall.mysql_insert.sql)
+[MySQL存储过程生成虚拟数据](../code/sql/gmall.mysql_proc.sql)
 
-hadoop支持snappy压缩
-Sqoop环境部署
+```sql
+-- 生成mysql业务数据
+init_data(do_date_string VARCHAR(20), order_incr_num INT,user_incr_num INT, sku_num INT, if_truncate BOOLEAN);
+-- do_date_string 生成数据日期
+-- order_incr_num 订单id个数
+-- user_incr_num 用户id个数
+-- sku_num 商品sku个数
+-- if_truncate 是否删除数据
 
-MySQL存储过程生成虚拟数据
+-- 案例测试
+-- 生成日期2019年2月10日的数据、订单1000个、用户200个、商品sku300个、删除原始数据
+CALL init_data('2019-08-28',1000,200,300,TRUE);
+
+-- 查看结果
+SELECT * from base_category1;
+SELECT * from base_category2;
+SELECT * from base_category3;
+
+SELECT * from order_info;
+SELECT * from order_detail;
+
+SELECT * from sku_info;
+SELECT * from user_info;
+
+SELECT * from payment_info;
+```
 
 
+[hadoop支持snappy压缩](../doc/env_build_new.md##Snappy)
+[Sqoop环境部署](../doc/env_build_new.md##Sqoop-1.4.6)
 
 ODS建表
 Sqoop同步脚本

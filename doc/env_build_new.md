@@ -485,3 +485,18 @@ set mapred.output.compression.codec=com.hadoop.compression.lzo.LzopCodec;
         <value>LD_LIBRARY_PATH=/usr/local/hadoop/lzo/lib</value>
     </property>
 ```
+
+
+## Snappy
+
+将编译后支持Snappy压缩的Hadoop jar包解压缩，并将`lib/native`目录下的所有文件上传到hadoop102的`/opt/module/hadoop-2.7.2/lib/native/`目录下，并分发到其他节点。
+重启hadoop
+```bash
+# 检查支持的压缩方式
+hadoop checknative
+# hadoop:  true /opt/module/hadoop-2.7.2/lib/native/libhadoop.so
+# zlib:    true /lib64/libz.so.1
+# snappy:  true /opt/module/hadoop-2.7.2/lib/native/libsnappy.so.1
+# lz4:     true revision:99
+# bzip2:   false
+```
