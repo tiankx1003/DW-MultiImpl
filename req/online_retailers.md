@@ -84,24 +84,10 @@ using jar 'hdfs://server01:8020/user/hive/jars/hivefunction-1.0-SNAPSHOT.jar';
 export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 ```
 
-
-<!-- 
-活跃
-新增
-留存
-沉默
-流失
-回流 -->
-
-
 [活跃设备明细 dws_uv](../code/sql/gmall.dws_uv.sql)
 [每日新增设备明细](../code/sql/gmall.dws_new_mid.sql)
 [每日留存用户明细](../code/sql/gmall.dws_user_retation.sql)
 
-
-
-
-##### 指标
 
 活跃设备数
 每日新增设备
@@ -115,6 +101,7 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 
 ### 系统业务数仓
 
+[数仓理论基础](../doc/data_warehouse_theory.md)
 
 hadoop支持snappy压缩
 Sqoop环境部署
@@ -143,6 +130,7 @@ GMV成交额
 
 MySQL建表
 Sqoop导出
+echarts
 
 Azkaban调度
 
