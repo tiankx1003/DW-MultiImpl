@@ -54,7 +54,7 @@ mv /opt/module/spark-2.4.5-bin-without-hive /opt/module/spark-2.4.5
 mv $SPARK_HOME/conf/spark-env.sh.template $SPARK_HOME/conf/spark-env.sh
 echo 'export SPARK_DIST_CLASSPATH=$(hadoop classpath)' >> $SPARK_HOME/conf/spark-env.sh
 # Hive on Spark
-ln -s $SPARK_HOME/jars/scala-library-2.11.12.jar /opt/module/hive/lib/scala-library-2.11.12.jar
+ln -s $SPARK_HOME/jars/scala-library-2.11.12.jar $HIVE_HOME/lib/scala-library-2.11.12.jar
 #如果以下两个文件存在，就跳过
 ln -s $SPARK_HOME/jars/spark-core_2.11-2.4.5.jar $HIVE_HOME/lib/spark-core_2.11-2.4.5.jar
 ln -s $SPARK_HOME/jars/spark-network-common_2.11-2.4.5.jar $HIVE_HOME/lib/spark-network-common_2.11-2.4.5.jar

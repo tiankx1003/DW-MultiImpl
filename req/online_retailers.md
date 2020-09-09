@@ -147,19 +147,19 @@ select * from payment_info;
  * 尝试直接Sqoop直接导入到Hive表
 
 [DWD建表](../code/sql/gmall.dwd_db.sql)
-[DWD调度脚本]
+[DWD调度脚本](../scripts/shell/gmall.dwd_db.sh)
 
 [DWS用户行为宽表](../code/sql/gmall.dws_db.sql)
 [DWS用户购买明细宽表](../code/sql/gmall.dws_db.sql)
 
 <!-- 拉链表 -->
 
-GMV成交额
-漏斗分析
-品牌复购率
+[GMV成交额](../code/sql/gmall.ads_gmv.sql)
+[漏斗分析](../code/sql/gmall.ads_act_convert.sql)
+[品牌复购率](ads.../code/sql/gmall.ads_rebuy.sql)
 
 
-数据可视化
+### 数据可视化
 
 MySQL建表
 Sqoop导出
