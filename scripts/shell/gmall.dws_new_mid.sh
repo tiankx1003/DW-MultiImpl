@@ -15,7 +15,7 @@ fi
 sql="
 set hive.exec.dynamic.partition.mode=nonstrict;
 -- hive
-insert into table dws_new_mid_day
+insert into table "$APP".dws_new_mid_day
 select ud.mid_id,
        ud.user_id,
        ud.version_code,

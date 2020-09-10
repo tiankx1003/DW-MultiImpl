@@ -89,16 +89,16 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 
 [活跃设备明细 dws_uv](../code/sql/gmall.dws_uv.sql)
 [每日新增设备明细 dws_new_mid](../code/sql/gmall.dws_new_mid.sql)
-[每日留存用户明细 dws_user_retation](../code/sql/gmall.dws_user_retation.sql)
+[每日留存用户明细 dws_user_retention](../code/sql/gmall.dws_user_retention.sql)
 
 [dws_uv调度脚本](../scripts/shell/gmall.dws_uv.sh)
 [dws_new_mid调度脚本](../scripts/shell/gmall.dws_new_mid.sh)
-[dws_user_retation调度脚本](../scripts/shell/gmall.dws_user_retation.sh)
+[dws_user_retention调度脚本](../scripts/shell/gmall.dws_user_retention.sh)
 
 
 [活跃设备数 ads_uv](../code/sql/gmall.ads_uv.sql)
 [每日新增设备 ads_new_mid](../code/sql/gmall.ads_new_mid.sql)
-[留存用户数、比例 ads_user_retation](../code/sql/gmall.ads_user_retation.sql)
+[留存用户数、比例 ads_user_retention](../code/sql/gmall.ads_user_retention.sql)
 [沉默用户数 ads_silent](../code/sql/gmall.ads_silent.sql)
 [流失用户数 ads_wastage](../code/sql/gmall.ads_wastage.sql)
 [本周回流用户数 ads_back](../code/sql/gmall.ads_back.sql)
@@ -106,7 +106,7 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 
 [ads_uv调度脚本](../scripts/shell/gmall.ads_uv.sh)
 [ads_new_mid调度脚本](../scripts/shell/gmall.ads_new_mid.sh)
-[ads_user_retation调度脚本](../scripts/shell/gmall.ads_user_retation.sh)
+[ads_user_retention调度脚本](../scripts/shell/gmall.ads_user_retention.sh)
 [ads_silent调度脚本](../scripts/shell/gmall.ads_silent.sh)
 [ads_wastage调度脚本](../scripts/shell/gmall.ads_wastage.sh)
 [ads_back调度脚本](../scripts/shell/gmall.ads_back.sh)

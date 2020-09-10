@@ -34,7 +34,7 @@ $hive -e "$sql"
 
 ch="
 select 'data checking ...';
-select * from "$APP".ods_start_log where dt='"$do_date"' limit 10;
-select * from "$APP".ods_event_log where dt='"$do_date"' limit 10;
+select * from "$APP".ods_start_log where dt=''$do_date'' limit 10;
+select * from "$APP".ods_event_log where dt=''$do_date'' limit 10;
 "
 $hive -e "$ch"

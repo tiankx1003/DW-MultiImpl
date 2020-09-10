@@ -15,7 +15,7 @@ fi
 sql="
 set hive.exec.dynamic.partition.mode=nonstrict;
 -- hive
-insert overwrite table "$APP".dws_user_retention_day partition (dt = "$do_date")
+insert overwrite table "$APP".dws_user_retention_day partition (dt = '$do_date')
 select nm.mid_id,
        nm.user_id,
        nm.version_code,
@@ -39,6 +39,7 @@ from "$APP".dws_uv_detail_day ud
 join "$APP".dws_new_mid_day nm on ud.mid_id = nm.mid_id
 where ud.dt = '$do_date'
   and nm.create_date = date_add('$do_date', -1);
+;
 "
 
 $hive -e "$sql"
