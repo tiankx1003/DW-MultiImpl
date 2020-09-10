@@ -1,6 +1,6 @@
 #!/bin/bash
 
-hive=/opt/module/hive/bin/hive
+hive=$HIVE_HOME/bin/hive
 APP=gmall
 
 if [ -n "$1" ];then

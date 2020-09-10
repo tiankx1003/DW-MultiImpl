@@ -6,7 +6,7 @@ else
     do_date=`date -d "-1 day" +%F`
 fi
 
-hive=/opt/module/hive/bin/hive
+hive=$HIVE_HOME/bin/hive
 APP=gmall
 
 echo "-----------导入日期$do_date-----------"
