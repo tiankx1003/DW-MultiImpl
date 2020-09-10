@@ -12,6 +12,8 @@
 * [ ] dwd层UDF函数的编写与注册
 * [ ] 解决Hive on Spark无法使用UDF
 * [ ] hive视图、merge2
+* [ ] Hive on Spark文档补充
+* [ ] 行为数仓指标
 * [ ] MySQL生成虚拟业务数据
 * [ ] Sqoop同步系统业务数据
 * [x] 生成日志--采集--消费--导入hive--分层处理 2020-9-7 12:13:52

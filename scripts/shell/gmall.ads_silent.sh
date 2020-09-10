@@ -6,7 +6,7 @@ APP=gmall
 if [ -n "$1" ];then
     do_date=$1
 else
-    do_date=`date -d "-1 day" +%F`
+    do_date=`date -d "-0 day" +%F`
 fi
 
 echo "-----------导入日期$do_date-----------"

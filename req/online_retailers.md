@@ -78,7 +78,7 @@ using jar 'hdfs://server01:8020/user/hive/jars/hivefunction-1.0-SNAPSHOT.jar';
 ```xml
     <!-- 2020-9-4 14:55:41 添加udf -->
     <property>
-        <name>hive.aux.jars.path</name>
+        <name>hive.aux.jars.path</name>w
         <value>file:///opt/module/hive-3.1.2/lib/hivefunction-1.0-SNAPSHOT.jar,file:///opt/module/hive-3.1.2/lib/hivefunction-1.0-SNAPSHOT-jar-with-dependencies.jar</value>
     </property>
 ```

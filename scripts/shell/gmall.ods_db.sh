@@ -135,7 +135,7 @@ hive=$HIVE_HOME/bin/hive
 if [ -n "$2" ] ;then
     do_date=$2
 else 
-    do_date=`date -d "-1 day" +%F`
+    do_date=`date -d "-0 day" +%F`
 fi
 
 sql=" 
