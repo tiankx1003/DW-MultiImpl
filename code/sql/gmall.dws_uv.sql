@@ -83,7 +83,7 @@ create external table dws_uv_detail_mn
 -- 数据加载语句
 set hive.exec.dynamic.partition.mode=nonstrict;
 
-insert overwrite table gmall.dws_uv_detail_day partition (dt = '2019-08-24')
+insert overwrite table gmall.dws_uv_detail_day partition (dt)
 select mid_id,
        concat_ws('|', collect_set(user_id))      user_id,
        concat_ws('|', collect_set(version_code)) version_code,
@@ -100,9 +100,10 @@ select mid_id,
        concat_ws('|', collect_set(app_time))     app_time,
        concat_ws('|', collect_set(network))      network,
        concat_ws('|', collect_set(lng))          lng,
-       concat_ws('|', collect_set(lat))          lat
+       concat_ws('|', collect_set(lat))          lat,
+       '2020-09-04' as dt
 from gmall.dwd_start_log
-where dt = '2019-08-24'
+where dt = '2020-09-04'
 group by mid_id;
 
 
@@ -124,13 +125,13 @@ select mid_id,
        concat_ws('|', collect_set(network))      network,
        concat_ws('|', collect_set(lng))          lng,
        concat_ws('|', collect_set(lat))          lat,
-       date_add(next_day('2019-08-24', 'MO'), -7),
-       date_add(next_day('2019-08-24', 'MO'), -1),
-       concat(date_add(next_day('2019-08-24', 'MO'), -7), '_', date_add(next_day('2019-08-24', 'MO'), -1)
+       date_add(next_day('2020-09-04', 'MO'), -7),
+       date_add(next_day('2020-09-04', 'MO'), -1),
+       concat(date_add(next_day('2020-09-04', 'MO'), -7), '_', date_add(next_day('2020-09-04', 'MO'), -1)
            )
 from gmall.dws_uv_detail_day
-where dt >= date_add(next_day('2019-08-24', 'MO'), -7)
-  and dt <= date_add(next_day('2019-08-24', 'MO'), -1)
+where dt >= date_add(next_day('2020-09-04', 'MO'), -7)
+  and dt <= date_add(next_day('2020-09-04', 'MO'), -1)
 group by mid_id;
 
 
@@ -152,7 +153,7 @@ select mid_id,
        concat_ws('|', collect_set(network))      network,
        concat_ws('|', collect_set(lng))          lng,
        concat_ws('|', collect_set(lat))          lat,
-       date_format('2019-08-24', 'yyyy-MM')
+       date_format('2020-09-04', 'yyyy-MM')
 from gmall.dws_uv_detail_day
-where date_format(dt, 'yyyy-MM') = date_format('2019-08-24', 'yyyy-MM')
+where date_format(dt, 'yyyy-MM') = date_format('2020-09-04', 'yyyy-MM')
 group by mid_id;
