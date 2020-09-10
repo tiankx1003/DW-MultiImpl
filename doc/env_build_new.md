@@ -30,6 +30,35 @@ chmod +x $HIVE_HOME/bin/hiveservices.sh
  * [$HIVE_HOME/conf/hive-site.xml](../code/env_build_new/hive-site.xml)
  * [$HIVE_HOME/bin/hiveservices.sh](../code/env_build_new/hiveservices.sh)
 
+*Hive comment 中文乱码问题*
+修改MySQL元数据的字符集
+```sql
+#若元数据库的数据集不为latin1，执行下面语句修改修改
+alter database metastore character set latin1;
+
+#修改表字段注解和表注解
+alter table COLUMNS_V2 modify column COMMENT varchar(256) character set utf8;
+alter table TABLE_PARAMS modify column PARAM_VALUE varchar(4000) character set utf8;
+#修改分区字段注解
+alter table PARTITION_KEYS modify column PKEY_COMMENT varchar(4000) character set utf8;
+alter table PARTITION_PARAMS modify column PARAM_VALUE varchar(4000) character set utf8;
+#修改索引注解
+alter table INDEX_PARAMS modify column PARAM_VALUE varchar(4000) character set utf8;
+```
+
+修改hive-site.xml连接url
+```xml
+<property>
+      <name>javax.jdo.option.ConnectionURL</name>
+      <value>jdbc:mysql://hdc-data2:3306/hive_remote?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
+</property>
+```
+
+重启集群，新建表的中文乱码问题解决，原表仍旧乱码
+
+
+
+
 ## tez-0.10.1
 
 ```bash
