@@ -131,7 +131,7 @@ init_data(do_date_string VARCHAR(20), order_incr_num INT,user_incr_num INT, sku_
 
 -- 案例测试
 -- 生成日期2019年2月10日的数据、订单1000个、用户200个、商品sku300个、删除原始数据
-call init_data('2020-09-04',1000,200,300,true);
+call init_data('2020-09-10',1000,200,300,true);
 
 -- 查看结果
 select * from base_category1;
@@ -160,8 +160,11 @@ select * from payment_info;
 [DWD建表](../code/sql/gmall.dwd_db.sql)
 [DWD调度脚本](../scripts/shell/gmall.dwd_db.sh)
 
-[DWS用户行为宽表](../code/sql/gmall.dws_db.sql)
-[DWS用户购买明细宽表](../code/sql/gmall.dws_db.sql)
+[DWS用户行为宽表](../code/sql/gmall.dws_action.sql)
+[DWS用户购买明细宽表](../code/sql/gmall.dws_sale.sql)
+
+[DWS用户行为宽表调度脚本](../scripts/shell/gmall.dws_action.sh)
+[DWS购买明细宽表调度脚本](../scripts/shell/gmall.dws_sale.sh)
 
 <!-- 拉链表 -->
 
@@ -169,6 +172,7 @@ select * from payment_info;
 [漏斗分析](../code/sql/gmall.ads_act_convert.sql)
 [品牌复购率](ads.../code/sql/gmall.ads_rebuy.sql)
 
+[ADS指标调度脚本](../scripts/shell/gmall.ads_db.sh)
 
 ### 数据可视化
 

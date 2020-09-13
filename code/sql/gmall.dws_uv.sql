@@ -101,9 +101,9 @@ select mid_id,
        concat_ws('|', collect_set(network))      network,
        concat_ws('|', collect_set(lng))          lng,
        concat_ws('|', collect_set(lat))          lat,
-       '2020-09-04' as dt
+       '2020-09-10' as dt
 from gmall.dwd_start_log
-where dt = '2020-09-04'
+where dt = '2020-09-10'
 group by mid_id;
 
 
@@ -125,13 +125,13 @@ select mid_id,
        concat_ws('|', collect_set(network))      network,
        concat_ws('|', collect_set(lng))          lng,
        concat_ws('|', collect_set(lat))          lat,
-       date_add(next_day('2020-09-04', 'MO'), -7),
-       date_add(next_day('2020-09-04', 'MO'), -1),
-       concat(date_add(next_day('2020-09-04', 'MO'), -7), '_', date_add(next_day('2020-09-04', 'MO'), -1)
+       date_add(next_day('2020-09-10', 'MO'), -7),
+       date_add(next_day('2020-09-10', 'MO'), -1),
+       concat(date_add(next_day('2020-09-10', 'MO'), -7), '_', date_add(next_day('2020-09-10', 'MO'), -1)
            )
 from gmall.dws_uv_detail_day
-where dt >= date_add(next_day('2020-09-04', 'MO'), -7)
-  and dt <= date_add(next_day('2020-09-04', 'MO'), -1)
+where dt >= date_add(next_day('2020-09-10', 'MO'), -7)
+  and dt <= date_add(next_day('2020-09-10', 'MO'), -1)
 group by mid_id;
 
 
@@ -153,7 +153,7 @@ select mid_id,
        concat_ws('|', collect_set(network))      network,
        concat_ws('|', collect_set(lng))          lng,
        concat_ws('|', collect_set(lat))          lat,
-       date_format('2020-09-04', 'yyyy-MM')
+       date_format('2020-09-10', 'yyyy-MM')
 from gmall.dws_uv_detail_day
-where date_format(dt, 'yyyy-MM') = date_format('2020-09-04', 'yyyy-MM')
+where date_format(dt, 'yyyy-MM') = date_format('2020-09-10', 'yyyy-MM')
 group by mid_id;

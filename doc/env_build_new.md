@@ -518,7 +518,7 @@ set mapred.output.compression.codec=com.hadoop.compression.lzo.LzopCodec;
 
 ## Snappy
 
-将编译后支持Snappy压缩的Hadoop jar包解压缩，并将`lib/native`目录下的所有文件上传到hadoop102的`/opt/module/hadoop-2.7.2/lib/native/`目录下，并分发到其他节点。
+将编译后支持Snappy压缩的Hadoop jar包解压缩，并将`lib/native`目录下的所有文件上传到server01的`/opt/module/hadoop-2.7.2/lib/native/`目录下，并分发到其他节点。
 重启hadoop
 ```bash
 # 检查支持的压缩方式

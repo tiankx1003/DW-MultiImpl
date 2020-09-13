@@ -5,8 +5,8 @@ echo $db_date
 db_name=gmall
 
 import_data() {
-/opt/module/sqoop/bin/sqoop import \
---connect jdbc:mysql://hadoop102:3306/$db_name \
+$SQOOP_HOME/bin/sqoop import \
+--connect jdbc:mysql://server01:3306/$db_name \
 --username root \
 --password root \
 --target-dir /origin_data/$db_name/db/$1/$db_date \

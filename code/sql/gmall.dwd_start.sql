@@ -33,7 +33,7 @@ create external table dwd_start_log
 
 
 -- 向表中导入数据
-insert overwrite table dwd_start_log partition (dt = '2020-09-04')
+insert overwrite table dwd_start_log partition (dt = '2020-09-10')
 select get_json_object(line, '$.mid')          as mid_id,
        get_json_object(line, '$.uid')          as user_id,
        get_json_object(line, '$.vc')           as version_code,
@@ -58,7 +58,7 @@ select get_json_object(line, '$.mid')          as mid_id,
        get_json_object(line, '$.detail')       as detail,
        get_json_object(line, '$.extend1')      as extend1
 from ods_start_log
-where dt = '2020-09-04';
+where dt = '2020-09-10';
 
 -- 验证
 select *

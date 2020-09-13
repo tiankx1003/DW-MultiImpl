@@ -35,7 +35,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_user`( create_time_string VA
 BEGIN  
  DECLARE v_create_time DATETIME DEFAULT NULL;
  DECLARE i INT DEFAULT 0;
- DECLARE v_birthday DATE DEFAULT 0;
+ DECLARE v_birthday DATE DEFAULT NULL;
  DECLARE v_gender VARCHAR(1) DEFAULT NULL;
  SET autocommit = 0;    
  REPEAT  
@@ -113,7 +113,7 @@ END$$
 DELIMITER ;
 
 
-DELIMITER$$
+DELIMITER $$
  DROP PROCEDURE IF EXISTS `insert_payment`$$
  ## 只要订单状态更新为2 ，给当天插入一条支付信息 
  CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_payment`( do_date_str VARCHAR(200)   )
