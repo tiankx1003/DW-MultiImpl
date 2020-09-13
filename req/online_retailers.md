@@ -176,9 +176,9 @@ select * from payment_info;
 
 ### 数据可视化
 
-MySQL建表
+[MySQL建表]
 Sqoop导出
-echarts
+[echarts](main/java/com/demo/../../../../../proj/echarts/src/main/java/com/demo/DemoApplication.java)
 
 ### Azkaban调度
 
