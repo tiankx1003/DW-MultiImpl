@@ -170,14 +170,14 @@ select * from payment_info;
 
 [GMV成交额](../code/sql/gmall.ads_gmv.sql)
 [漏斗分析](../code/sql/gmall.ads_act_convert.sql)
-[品牌复购率](ads.../code/sql/gmall.ads_rebuy.sql)
+[品牌复购率](../code/sql/gmall.ads_rebuy.sql)
 
 [ADS指标调度脚本](../scripts/shell/gmall.ads_db.sh)
 
 ### 数据可视化
 
-[MySQL建表]
-Sqoop导出
+[MySQL建表](../code/sql/gmall.visual_create.sql)
+[Sqoop导出](../scripts/shell/gmall.sqoop_export.sh)
 [echarts](main/java/com/demo/../../../../../proj/echarts/src/main/java/com/demo/DemoApplication.java)
 
 ### Azkaban调度
