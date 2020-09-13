@@ -15,7 +15,7 @@ case $1 in
                 echo " --------启动 $i 采集flume-------"
                 ssh $i "nohup flume-ng agent -n a1 -c /opt/module/flume-1.7.0/conf -f /opt/module/flume-1.7.0/job/flume01.conf -Dflume.root.logger=INFO,LOGFILE > /opt/module/flume-1.7.0/logs/flume.log 2>&1 &"
         done
-};;	
+};;    
 "0"){
         for i in server01 server02
         do

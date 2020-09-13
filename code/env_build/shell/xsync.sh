@@ -12,6 +12,6 @@ echo pdir=$pdir
 user=`whoami`
 for i in `cat $HADOOP_HOME/etc/hadoop/slaves`
 do
-	echo -e "\033[31m ---------- $i ---------- \033[0m"
-	rsync -av $pdir/$fname $user@$i:$pdir
+    echo -e "\033[31m ---------- $i ---------- \033[0m"
+    rsync -av $pdir/$fname $user@$i:$pdir
 done

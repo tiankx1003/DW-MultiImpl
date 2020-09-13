@@ -89,32 +89,28 @@ CREATE   TABLE  `payment_info`
 
 
  
-
+drop table if exists `base_category1`;
 CREATE TABLE  `base_category1`
 (
        `id`              BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT '编号',
        `name`            VARCHAR(100) NOT NULL COMMENT '分类名称'
-);
-ALTER TABLE `base_category1` COMMENT= '一级分类表';
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT= '一级分类表';
 
 
 
-
+drop table if exists `base_category2`;
 CREATE TABLE  `base_category2`
 (
        `id`              BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT '编号',
        `name`            VARCHAR(200) NOT NULL COMMENT '二级分类名称',
        `category1_id`     BIGINT COMMENT '一级分类编号'
-);
-ALTER TABLE `base_category2` COMMENT= '二级分类表';
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT= '二级分类表';
 
 
-
+drop table if exists `base_category3`;
  CREATE TABLE  `base_category3`
 (
        `id`              BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL COMMENT '编号',
        `name`            VARCHAR(200) NOT NULL COMMENT '三级分类名称',
        `category2_id`     BIGINT COMMENT '二级分类编号'
-);
-ALTER TABLE `base_category3` COMMENT= '三级分类表';
-#####
+) ENGINE=INNODB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT= '三级分类表';

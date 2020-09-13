@@ -27,8 +27,8 @@ select
     sum(if(mn.order_count>=2,1,0))/sum( if(mn.order_count>=1,1,0)) buyTwiceLastRatio,
     sum(if(mn.order_count>=3,1,0))  buy3timeLast  ,
     sum(if(mn.order_count>=3,1,0))/sum( if(mn.order_count>=1,1,0)) buy3timeLastRatio ,
-    date_format('2019-08-28' ,'yyyy-MM') stat_mn,
-    '2019-08-28' stat_date
+    date_format('2020-09-10' ,'yyyy-MM') stat_mn,
+    '2020-09-10' stat_date
 from 
 (
     select 
@@ -38,7 +38,7 @@ from
         sd.sku_category1_name,
         sum(order_count) order_count
     from dws_sale_detail_daycount sd 
-    where date_format(dt,'yyyy-MM')=date_format('2019-08-28' ,'yyyy-MM')
+    where date_format(dt,'yyyy-MM')=date_format('2020-09-10' ,'yyyy-MM')
     group by user_id, sd.sku_tm_id, sd.sku_category1_id, sd.sku_category1_name
 ) mn
 group by mn.sku_tm_id, mn.sku_category1_id, mn.sku_category1_name
@@ -76,7 +76,7 @@ from(
             sku_id,
             cast(sum(if(mn.order_count>2,1,0))/sum(if(mn.order_count>1,1,0))as decimal(10,2)) rebuy_ratio
         from dws_sal_detail_daycount
-        where dt='2019-08-28'
+        where dt='2020-09-10'
         group by user_level,sku_id) t1
         )t2
 where rank_num<=10;

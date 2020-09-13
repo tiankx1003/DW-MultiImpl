@@ -15,7 +15,7 @@ insert into table ads_new_mid_count
 select create_date,
        count(*)
 from dws_new_mid_day
-where create_date = '2019-08-24'
+where create_date = '2020-09-10'
 group by create_date;
 -- 3）查询导入数据
 select *

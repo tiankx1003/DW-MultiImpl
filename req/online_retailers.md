@@ -102,7 +102,7 @@ export HIVE_AUX_JARS_PATH=$HIVE_HOME/lib2
 [沉默用户数 ads_silent](../code/sql/gmall.ads_silent.sql)
 [流失用户数 ads_wastage](../code/sql/gmall.ads_wastage.sql)
 [本周回流用户数 ads_back](../code/sql/gmall.ads_back.sql)
-[时间区间内连续n天登陆 ads_continuty_wk](../code/sql/gmall.ads_continuty_wk.s3ql)
+[时间区间内连续n天登陆 ads_continuty_wk](../code/sql/gmall.ads_continuty_wk.sql)
 
 [ads_uv调度脚本](../scripts/shell/gmall.ads_uv.sh)
 [ads_new_mid调度脚本](../scripts/shell/gmall.ads_new_mid.sh)

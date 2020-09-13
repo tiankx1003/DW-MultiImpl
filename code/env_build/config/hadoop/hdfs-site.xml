@@ -18,11 +18,11 @@
 
 <configuration>
 <property>
-	<name>dfs.replication</name>
-	<value>1</value>
+    <name>dfs.replication</name>
+    <value>1</value>
 </property>
 <property>
-	<name>dfs.namenode.secondary.http-address</name>
-	<value>localhost:50090</value>
+    <name>dfs.namenode.secondary.http-address</name>
+    <value>localhost:50090</value>
 </property>
 </configuration>

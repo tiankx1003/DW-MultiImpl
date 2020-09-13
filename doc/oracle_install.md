@@ -128,10 +128,10 @@ cat /sys/kernel/mm/transparent_hugepage/enabled # 查看THP是否已关闭
 
 ```sh
 if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
-	echo never > /sys/kernel/mm/transparent_hugepage/enabled
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
 fi
 if test -f /sys/kernel/mm/transparent_hugepage/defrag; then
-	echo never > /sys/kernel/mm/transparent_hugepage/defrag
+    echo never > /sys/kernel/mm/transparent_hugepage/defrag
 fi
 ```
 

@@ -13,16 +13,16 @@ create external table ads_uv_count
 
 -- 插入数据
 insert overwrite table ads_uv_count
-select '2019-08-28' dt,
+select '2020-09-10' dt,
        daycount.ct,
        wkcount.ct,
-       if(date_add(next_day('2019-08-28', 'MO'), -1) = '2019-08-28', 'Y', 'N') -- 是否是周末
-from (select '2019-08-28' dt, count(*) ct
-      from dws_uv_day
-      where dt = '2019-08-28') daycount
+       if(date_add(next_day('2020-09-10', 'MO'), -1) = '2020-09-10', 'Y', 'N') -- 是否是周末
+from (select '2020-09-10' dt, count(*) ct
+      from dws_uv_detail_day
+      where dt = '2020-09-10') daycount
          join
-     (select '2019-08-28' dt, count(*) ct
-      from dws_uv_wk
+     (select '2020-09-10' dt, count(*) ct
+      from dws_uv_detail_wk
       where wk_dt =
-            concat(date_add(next_day('2019-08-28', 'MO'), -7), '_', date_add(next_day('2019-08-28', 'MO'), -1))) wkcount
+            concat(date_add(next_day('2020-09-10', 'MO'), -7), '_', date_add(next_day('2020-09-10', 'MO'), -1))) wkcount
      on daycount.dt = wkcount.dt;

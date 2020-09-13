@@ -19,9 +19,7 @@ select
   '$do_date' dt,
    daycount.ct,
    wkcount.ct,
-   mncount.ct,
-   if(date_add(next_day('$do_date','MO'),-1)='$do_date','Y','N') ,
-   if(last_day('$do_date')='$do_date','Y','N') 
+   if(date_add(next_day('$do_date','MO'),-1)='$do_date','Y','N')
 from 
 (
    select  

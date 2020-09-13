@@ -15,10 +15,10 @@ fi
 sql="
 set hive.exec.dynamic.partition.mode=nonstrict;
 -- hive
-insert into table "$APP"..ads_new_mid_count
+insert into table "$APP".ads_new_mid_count
 select create_date,
        count(*)
-from "$APP"..dws_new_mid_day
+from "$APP".dws_new_mid_day
 where create_date = '$do_date'
 group by create_date;
 "

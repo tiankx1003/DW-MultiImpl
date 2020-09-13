@@ -39,12 +39,12 @@ BEGIN
  DECLARE v INT DEFAULT 0;
  DECLARE return_str VARCHAR(255) DEFAULT '';  
  WHILE i < n DO 
-	 SET v = rand_num (from_num   ,to_num  ) ;
-	 SET return_str=CONCAT(return_str,v);
-	 IF LENGTH(return_str)>0 THEN 
-	   SET return_str=CONCAT(return_str,delemit) ;
-	 END IF;
-	 SET i = i + 1;
+     SET v = rand_num (from_num   ,to_num  ) ;
+     SET return_str=CONCAT(return_str,v);
+     IF LENGTH(return_str)>0 THEN 
+       SET return_str=CONCAT(return_str,delemit) ;
+     END IF;
+     SET i = i + 1;
 END WHILE;
  RETURN return_str;
 END$$

@@ -44,8 +44,8 @@ select ud.mid_id,
        ud.network,
        ud.lng,
        ud.lat,
-       '2019-08-24'
+       '2020-09-10'
 from dws_uv_detail_day ud
 left join dws_new_mid_day nm on ud.mid_id = nm.mid_id
-where ud.dt = '2019-08-24'
+where ud.dt = '2020-09-10'
   and nm.mid_id is null;
