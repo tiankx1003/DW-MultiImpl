@@ -529,3 +529,216 @@ hadoop checknative
 # lz4:     true revision:99
 # bzip2:   false
 ```
+
+
+## ClickHouse
+
+
+CentOS取消打开文件数限制
+
+```bash
+vim /etc/security/limits.conf
+```
+
+```conf
+* soft nofile 65536 
+* hard nofile 65536 
+* soft nproc 131072 
+* hard nproc 131072
+```
+
+```bash
+vim /etc/security/limits.d/90-nproc.conf
+```
+
+```conf
+* soft nofile 65536 
+* hard nofile 65536 
+* soft nproc 131072 
+* hard nproc 131072
+```
+```bash
+# 重启生效， 查看配置是否生效
+ulimit -a 
+ulimit -n
+
+
+# 关闭SELINUX， 关闭防火墙
+vim /etc/selinux/config # SELINUX=disabled
+service iptables stop
+service ip6tables stop
+
+yum install -y libtool unixODBC
+```
+
+#### 单点
+
+```bash
+ls /opt/software
+# clickhouse-client-1.1.54236-4.el6.x86_64.rpm      
+# clickhouse-server-1.1.54236-4.el6.x86_64.rpm
+# clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm  
+# clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
+# clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
+cd /opt/software
+rpm -ivh clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
+rpm -ivh clickhouse-server-1.1.54236-4.el6.x86_64.rpm
+rpm -ivh clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
+rpm -ivh clickhouse-client-1.1.54236-4.el6.x86_64.rpm
+rpm -ivh clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm
+
+# 库依赖缺失
+# libbfd-2.20.51.0.2-5.44.el6.so()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
+# libicudata.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
+# libicui18n.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
+# libicuuc.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
+```
+
+```bash
+# 前台启动ClickServer
+clickhouse-server --config-file=/etc/clickhouse-server/config.xml
+# 后台启动ClickServer
+nohup clickhouse-server --config-file=/etc/clickhouse-server/config.xml  >null 2>&1 &
+# 使用client连接server
+clickhouse-client
+```
+
+
+sudo docker run -d –name some-clickhouse-server –ulimit nofile=262144:262144 yandex/clickhouse-server
+sudo docker run -it –rm –link some-clickhouse-server:clickhouse-server yandex/clickhouse-client –host clickhouse-server
+sudo docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml yandex/clickhouse-serve
+sudo docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server
+
+sudo docker run --network=lnmp_lnmp --ulimit nofile=262144:262144 --volume=$HOME/some_clickhouse_database:/var/lib/clickhouse yandex/clickhouse-server
+sudo docker run -it --link clickhouse-server
+
+sudo docker pull yandex/clickhouse-server:20.3.5.21
+
+sudo docker ps --format "table {{.Names}} ------> {{.Ports}}" | grep minio
+minio ------> 0.0.0.0:9000->9000/tcp
+
+sudo docker run --rm -d --name=clickhouse-server \
+--ulimit nofile=262144:262144 \
+-p 8123:8123 -p 9009:9009 -p 9090:9000 \
+yandex/clickhouse-server:20.3.5.21
+
+sudo docker cp clickhouse-server:/etc/clickhouse-server/config.xml /opt/module/ck/conf/config.xml
+sudo docker cp clickhouse-server:/etc/clickhouse-server/users.xml /opt/module/ck/conf/users.xml
+
+sudo docker stop clickhouse-server
+
+PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
+Tx1tdI8b
+0c8e23d7740e292f5be5a262880782c763df9e755c4541f033219e0d8ae0c430
+
+PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
+i2TEZJ13
+737d7afc6b34be350792ab685ea0247a4221d0e02e257486ab311a4be103af41
+
+```xml
+        <root>
+            <password_sha256_hex>0c8e23d7740e292f5be5a262880782c763df9e755c4541f033219e0d8ae0c430</password_sha256_hex>
+            <networks incl="networks" replace="replace">
+                <ip>::/0</ip>
+            </networks>
+            <profile>default</profile>
+            <quota>default</quota>
+        </root>
+```
+
+sudo docker run -d --name=clickhouse-server \
+-p 8123:8123 -p 9009:9009 -p 9090:9000 \
+--ulimit nofile=262144:262144 \
+-v /opt/module/ck/data:/var/lib/clickhouse:rw \
+-v /opt/module/ck/conf/config.xml:/etc/clickhouse-server/config.xml \
+-v /opt/module/ck/conf/users.xml:/etc/clickhouse-server/users.xml \
+-v /opt/module/ck/log:/var/log/clickhouse-server:rw \
+yandex/clickhouse-server:20.3.5.21
+
+#### 集群
+
+```bash
+# 三台节点修改config与metrika.xml
+vim /etc/clickhouse-server/config.xml
+vim /etc/metrika.xml
+```
+```xml
+<listen_host>::</listen_host>
+<!-- <listen_host>::1</listen_host> -->
+<!-- <listen_host>127.0.0.1</listen_host> -->
+```
+```xml
+<yandex>
+<clickhouse_remote_servers>
+    <perftest_3shards_1replicas>
+        <shard>
+             <internal_replication>true</internal_replication>
+            <replica>
+                <host>server02</host>
+                <port>9000</port>
+            </replica>
+        </shard>
+        <shard>
+            <replica>
+                <internal_replication>true</internal_replication>
+                <host>server03</host>
+                <port>9000</port>
+            </replica>
+        </shard>
+        <shard>
+            <internal_replication>true</internal_replication>
+            <replica>
+                <host>server04</host>
+                <port>9000</port>
+            </replica>
+        </shard>
+    </perftest_3shards_1replicas>
+</clickhouse_remote_servers>
+
+
+<zookeeper-servers>
+  <node index="1">
+    <host>server02</host>
+    <port>2181</port>
+  </node>
+
+  <node index="2">
+    <host>server03</host>
+    <port>2181</port>
+  </node>
+  <node index="3">
+    <host>server04</host>
+    <port>2181</port>
+  </node>
+</zookeeper-servers>
+
+<!-- 改为当前节点名 -->
+<macros>
+    <replica>localhost</replica>
+</macros>
+
+
+<networks>
+   <ip>::/0</ip>
+</networks>
+
+
+<clickhouse_compression>
+<case>
+  <min_part_size>10000000000</min_part_size>
+                                             
+  <min_part_size_ratio>0.01</min_part_size_ratio>                                                                                                                                       
+  <method>lz4</method>
+</case>
+</clickhouse_compression>
+
+</yandex>
+
+```
+
+```bash
+# 前台启动
+clickhouse-server --config-file=/etc/clickhouse-server/config.xml
+# 后台启动
+nohup clickhouse-server --config-file=/etc/clickhouse-server/config.xml  >null 2>&1 &
+```
