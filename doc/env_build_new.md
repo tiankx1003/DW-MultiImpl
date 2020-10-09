@@ -69,7 +69,7 @@ hadoop fs -put /opt/software/tez-0.10.1-SNAPSHOT.tar.gz /tez
 vim $HADOOP_HOME/etc/hadoop/tez-site.xml
 vim $HADOOP_HOME/etc/hadoop/shellprofile.d/tez.sh
 # 修改hive引擎
-vim $HIVE_HOME/conf/hive-site.xml 
+vim $HIVE_HOME/conf/hive-site.xml
 ```
 
  * [$HADOOP_HOME/etc/hadoop/tez-site.xml](../code/env_build_new/tez-site.xml)
@@ -264,7 +264,7 @@ export ACCUMULO_HOME=/opt/module/sqoop-1.4.6/accumulo
 
 sudo yum -y install gcc-c++ lzo-devel zlib-devel autoconf automake libtool
 
-# 
+#
 wget http://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz
 tar -zxvf lzo-2.10.tar.gz
 cd lzo-2.10
@@ -282,7 +282,7 @@ vim hadoop-lzo-master/pom.xml
 
 # 声明两个临时环境变量
 export C_INCLUDE_PATH=/usr/local/hadoop/lzo/include
-export LIBRARY_PATH=/usr/local/hadoop/lzo/lib 
+export LIBRARY_PATH=/usr/local/hadoop/lzo/lib
 
 cd hadoop-lzo-master
 mvn package -Dmaven.test.skip=true
@@ -436,9 +436,9 @@ hive-site.xml
         <name>hive.exec.compress.output</name>
         <value>true</value>
         <description>
-            This controls whether the final outputs of a query (to a local/HDFS file or a Hive table) 
-            is compressed. 
-            The compression codec and other options are determined from Hadoop config variables 
+            This controls whether the final outputs of a query (to a local/HDFS file or a Hive table)
+            is compressed.
+            The compression codec and other options are determined from Hadoop config variables
             mapred.output.compress*
         </description>
     </property>
@@ -449,7 +449,7 @@ hive-site.xml
         <name>hive.exec.compress.intermediate</name>
         <value>true</value>
         <description>
-            This controls whether intermediate files produced by Hive between multiple map-reduce jobs are compressed. 
+            This controls whether intermediate files produced by Hive between multiple map-reduce jobs are compressed.
             The compression codec and other options are determined from Hadoop config variables mapred.output.compress*
         </description>
     </property>
@@ -541,9 +541,9 @@ vim /etc/security/limits.conf
 ```
 
 ```conf
-* soft nofile 65536 
-* hard nofile 65536 
-* soft nproc 131072 
+* soft nofile 65536
+* hard nofile 65536
+* soft nproc 131072
 * hard nproc 131072
 ```
 
@@ -552,14 +552,14 @@ vim /etc/security/limits.d/90-nproc.conf
 ```
 
 ```conf
-* soft nofile 65536 
-* hard nofile 65536 
-* soft nproc 131072 
+* soft nofile 65536
+* hard nofile 65536
+* soft nproc 131072
 * hard nproc 131072
 ```
 ```bash
 # 重启生效， 查看配置是否生效
-ulimit -a 
+ulimit -a
 ulimit -n
 
 
@@ -575,30 +575,45 @@ yum install -y libtool unixODBC
 
 ```bash
 ls /opt/software
-# clickhouse-client-1.1.54236-4.el6.x86_64.rpm      
+# clickhouse-client-1.1.54236-4.el6.x86_64.rpm
 # clickhouse-server-1.1.54236-4.el6.x86_64.rpm
-# clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm  
+# clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm
 # clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
 # clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
 cd /opt/software
-rpm -ivh clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
-rpm -ivh clickhouse-server-1.1.54236-4.el6.x86_64.rpm
-rpm -ivh clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
-rpm -ivh clickhouse-client-1.1.54236-4.el6.x86_64.rpm
-rpm -ivh clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm
+sudo rpm -ivh clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
+sudo rpm -ivh clickhouse-server-1.1.54236-4.el6.x86_64.rpm
+sudo rpm -ivh clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
+sudo rpm -ivh clickhouse-client-1.1.54236-4.el6.x86_64.rpm
+sudo rpm -ivh clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm
+
+wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-client-1.1.54362-1.el7.x86_64.rpm/download.rpm
+wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-debuginfo-1.1.54362-1.el7.x86_64.rpm/download.rpm
+wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-server-1.1.54362-1.el7.x86_64.rpm/download.rpm
+wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-server-common-1.1.54362-1.el7.x86_64.rpm/download.rpm
+wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-test-1.1.54362-1.el7.x86_64.rpm/download.rpm
+
+sudo rpm -ivh clickhouse-server-common-1.1.54362-1.el7.x86_64.rpm
+sudo rpm -ivh clickhouse-server-1.1.54362-1.el7.x86_64.rpm
+sudo rpm -ivh clickhouse-debuginfo-1.1.54362-1.el7.x86_64.rpm
+sudo rpm -ivh clickhouse-client-1.1.54362-1.el7.x86_64.rpm
+sudo rpm -ivh clickhouse-test-1.1.54362-1.el7.x86_64.rpm
+
 
 # 库依赖缺失
 # libbfd-2.20.51.0.2-5.44.el6.so()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
 # libicudata.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
 # libicui18n.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
 # libicuuc.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
+
+## 版本需要与CentOS版本兼容
 ```
 
 ```bash
 # 前台启动ClickServer
-clickhouse-server --config-file=/etc/clickhouse-server/config.xml
+sudo clickhouse-server --config-file=/etc/clickhouse-server/config.xml
 # 后台启动ClickServer
-nohup clickhouse-server --config-file=/etc/clickhouse-server/config.xml  >null 2>&1 &
+sudo nohup clickhouse-server --config-file=/etc/clickhouse-server/config.xml  >null 2>&1 &
 # 使用client连接server
 clickhouse-client
 ```
@@ -609,13 +624,15 @@ sudo docker run -it –rm –link some-clickhouse-server:clickhouse-server yande
 sudo docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml yandex/clickhouse-serve
 sudo docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server
 
+```sh
+# docker部署单点ck， 验证可行 2020-9-25 13:41:30
 sudo docker run --network=lnmp_lnmp --ulimit nofile=262144:262144 --volume=$HOME/some_clickhouse_database:/var/lib/clickhouse yandex/clickhouse-server
 sudo docker run -it --link clickhouse-server
 
 sudo docker pull yandex/clickhouse-server:20.3.5.21
 
 sudo docker ps --format "table {{.Names}} ------> {{.Ports}}" | grep minio
-minio ------> 0.0.0.0:9000->9000/tcp
+# minio ------> 0.0.0.0:9000->9000/tcp
 
 sudo docker run --rm -d --name=clickhouse-server \
 --ulimit nofile=262144:262144 \
@@ -628,12 +645,13 @@ sudo docker cp clickhouse-server:/etc/clickhouse-server/users.xml /opt/module/ck
 sudo docker stop clickhouse-server
 
 PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
-Tx1tdI8b
-0c8e23d7740e292f5be5a262880782c763df9e755c4541f033219e0d8ae0c430
+# Tx1tdI8b
+# 0c8e23d7740e292f5be5a262880782c763df9e755c4541f033219e0d8ae0c430
 
 PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
-i2TEZJ13
-737d7afc6b34be350792ab685ea0247a4221d0e02e257486ab311a4be103af41
+# i2TEZJ13
+# 737d7afc6b34be350792ab685ea0247a4221d0e02e257486ab311a4be103af41
+```
 
 ```xml
         <root>
@@ -674,21 +692,21 @@ vim /etc/metrika.xml
         <shard>
              <internal_replication>true</internal_replication>
             <replica>
-                <host>server02</host>
+                <host>server01</host>
                 <port>9000</port>
             </replica>
         </shard>
         <shard>
             <replica>
                 <internal_replication>true</internal_replication>
-                <host>server03</host>
+                <host>server02</host>
                 <port>9000</port>
             </replica>
         </shard>
         <shard>
             <internal_replication>true</internal_replication>
             <replica>
-                <host>server04</host>
+                <host>server03</host>
                 <port>9000</port>
             </replica>
         </shard>
@@ -698,16 +716,16 @@ vim /etc/metrika.xml
 
 <zookeeper-servers>
   <node index="1">
-    <host>server02</host>
+    <host>server01</host>
     <port>2181</port>
   </node>
 
   <node index="2">
-    <host>server03</host>
+    <host>server02</host>
     <port>2181</port>
   </node>
   <node index="3">
-    <host>server04</host>
+    <host>server03</host>
     <port>2181</port>
   </node>
 </zookeeper-servers>
@@ -726,8 +744,8 @@ vim /etc/metrika.xml
 <clickhouse_compression>
 <case>
   <min_part_size>10000000000</min_part_size>
-                                             
-  <min_part_size_ratio>0.01</min_part_size_ratio>                                                                                                                                       
+
+  <min_part_size_ratio>0.01</min_part_size_ratio>
   <method>lz4</method>
 </case>
 </clickhouse_compression>
