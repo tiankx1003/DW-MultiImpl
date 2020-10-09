@@ -574,39 +574,17 @@ yum install -y libtool unixODBC
 #### 单点
 
 ```bash
-ls /opt/software
-# clickhouse-client-1.1.54236-4.el6.x86_64.rpm
-# clickhouse-server-1.1.54236-4.el6.x86_64.rpm
-# clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm
-# clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
-# clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
-cd /opt/software
-sudo rpm -ivh clickhouse-server-common-1.1.54236-4.el6.x86_64.rpm
-sudo rpm -ivh clickhouse-server-1.1.54236-4.el6.x86_64.rpm
-sudo rpm -ivh clickhouse-debuginfo-1.1.54236-4.el6.x86_64.rpm
-sudo rpm -ivh clickhouse-client-1.1.54236-4.el6.x86_64.rpm
-sudo rpm -ivh clickhouse-compressor-1.1.54236-4.el6.x86_64.rpm
-
+# CentOS 7 需要下载el7版本
 wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-client-1.1.54362-1.el7.x86_64.rpm/download.rpm
 wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-debuginfo-1.1.54362-1.el7.x86_64.rpm/download.rpm
 wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-server-1.1.54362-1.el7.x86_64.rpm/download.rpm
 wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-server-common-1.1.54362-1.el7.x86_64.rpm/download.rpm
 wget --content-disposition https://packagecloud.io/Altinity/clickhouse/packages/el/7/clickhouse-test-1.1.54362-1.el7.x86_64.rpm/download.rpm
-
 sudo rpm -ivh clickhouse-server-common-1.1.54362-1.el7.x86_64.rpm
 sudo rpm -ivh clickhouse-server-1.1.54362-1.el7.x86_64.rpm
 sudo rpm -ivh clickhouse-debuginfo-1.1.54362-1.el7.x86_64.rpm
 sudo rpm -ivh clickhouse-client-1.1.54362-1.el7.x86_64.rpm
 sudo rpm -ivh clickhouse-test-1.1.54362-1.el7.x86_64.rpm
-
-
-# 库依赖缺失
-# libbfd-2.20.51.0.2-5.44.el6.so()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
-# libicudata.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
-# libicui18n.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
-# libicuuc.so.42()(64bit) is needed by clickhouse-server-1.1.54236-4.el6.x86_64
-
-## 版本需要与CentOS版本兼容
 ```
 
 ```bash
@@ -617,13 +595,7 @@ sudo nohup clickhouse-server --config-file=/etc/clickhouse-server/config.xml  >n
 # 使用client连接server
 clickhouse-client
 ```
-
-
-sudo docker run -d –name some-clickhouse-server –ulimit nofile=262144:262144 yandex/clickhouse-server
-sudo docker run -it –rm –link some-clickhouse-server:clickhouse-server yandex/clickhouse-client –host clickhouse-server
-sudo docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 -v /path/to/your/config.xml:/etc/clickhouse-server/config.xml yandex/clickhouse-serve
-sudo docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server
-
+**Docker安装CK**
 ```sh
 # docker部署单点ck， 验证可行 2020-9-25 13:41:30
 sudo docker run --network=lnmp_lnmp --ulimit nofile=262144:262144 --volume=$HOME/some_clickhouse_database:/var/lib/clickhouse yandex/clickhouse-server
@@ -674,6 +646,8 @@ sudo docker run -d --name=clickhouse-server \
 yandex/clickhouse-server:20.3.5.21
 
 #### 集群
+
+ * *验证不可行*
 
 ```bash
 # 三台节点修改config与metrika.xml

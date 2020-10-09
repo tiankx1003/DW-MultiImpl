@@ -17,6 +17,8 @@
 * [ ] MySQL生成虚拟业务数据
 * [ ] Sqoop同步系统业务数据
 * [x] 生成日志--采集--消费--导入hive--分层处理 2020-9-7 12:13:52
+* [x] ClickHouse Single Node 2020-10-9 15:40:38
+* [ ] ClickHouse Cluster 
 * [ ] 数仓表支持压缩
 * [ ] Spark处理离线需求
 * [ ] 电商数仓需求
@@ -29,4 +31,3 @@
 * [ ] 即席查询 Ad Hoc queries
 * [x] Oracle 11g @ CentOS 7.5 2020-08-24 01:07:49
 * [ ] Oracle支持外部连接
-test
