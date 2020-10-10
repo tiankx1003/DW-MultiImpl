@@ -627,7 +627,8 @@ PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWO
 
 ```xml
         <root>
-            <password_sha256_hex>0c8e23d7740e292f5be5a262880782c763df9e755c4541f033219e0d8ae0c430</password_sha256_hex>
+            <!-- <password_sha256_hex>0c8e23d7740e292f5be5a262880782c763df9e755c4541f033219e0d8ae0c430</password_sha256_hex> -->
+            <password>root</password>
             <networks incl="networks" replace="replace">
                 <ip>::/0</ip>
             </networks>
@@ -655,6 +656,7 @@ vim /etc/clickhouse-server/config.xml
 vim /etc/metrika.xml
 ```
 ```xml
+<!-- 打开注释，支持远程连接 -->
 <listen_host>::</listen_host>
 <!-- <listen_host>::1</listen_host> -->
 <!-- <listen_host>127.0.0.1</listen_host> -->
