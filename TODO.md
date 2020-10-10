@@ -18,7 +18,7 @@
 * [ ] Sqoop同步系统业务数据
 * [x] 生成日志--采集--消费--导入hive--分层处理 2020-9-7 12:13:52
 * [x] ClickHouse Single Node 2020-10-9 15:40:38
-* [ ] ClickHouse Cluster 
+* [x] ClickHouse Cluster 2020-10-10 15:25:06
 * [ ] 数仓表支持压缩
 * [ ] Spark处理离线需求
 * [ ] 电商数仓需求
