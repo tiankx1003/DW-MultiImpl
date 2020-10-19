@@ -31,3 +31,4 @@
 * [ ] 即席查询 Ad Hoc queries
 * [x] Oracle 11g @ CentOS 7.5 2020-08-24 01:07:49
 * [ ] Oracle支持外部连接
+* [ ] Clickhouse + Flink 实时数仓
