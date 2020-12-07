@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <option name="implicitConversions" value="true" />
+    <profile name="Maven 1" modules="review03_spark,review04_flink_1.10.0,review04_flink_1.7.0" />
+  </component>
+</project>
