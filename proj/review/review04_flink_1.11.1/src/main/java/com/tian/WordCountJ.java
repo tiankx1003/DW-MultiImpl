@@ -1,10 +1,9 @@
 package com.tian;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
@@ -19,7 +18,7 @@ public class WordCountJ {
         DataStream<String> text = env.readTextFile("files/wordcount.txt");
         DataStream<Tuple2<String, Integer>> result = text
                 .flatMap(new TokenizerJ())
-                .keyBy(0)
+                .keyBy((KeySelector<Tuple2<String, Integer>, Object>) stringIntegerTuple2 -> stringIntegerTuple2.f0)
                 .sum(1);
         result.print().setParallelism(1);
         env.execute("word count java");
@@ -28,7 +27,7 @@ public class WordCountJ {
     public static final class TokenizerJ implements FlatMapFunction<String, Tuple2<String, Integer>> {
 
         @Override
-        public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
+        public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
             String[] words = value.toLowerCase().split("\\W+");
             for (String word : words) {
                 if (word.length() > 0) out.collect(new Tuple2<>(word, 1));

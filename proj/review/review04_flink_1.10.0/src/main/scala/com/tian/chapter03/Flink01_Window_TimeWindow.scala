@@ -18,11 +18,11 @@ object Flink01_Window_TimeWindow {
     val dataWS: WindowedStream[(String, Int), String, TimeWindow] = socketStream
       .map(data => (data, 1))
       .keyBy(_._1)
-      //      .timeWindow(Time.seconds(3)) // 滚动窗口
-      //      .window(TumblingProcessingTimeWindows.of(Time.seconds(3)))
-
-            .timeWindow(Time.seconds(3),Time.seconds(30))  // 滑动窗口，多传一个 滑动间隔
-      //    .window(SlidingProcessingTimeWindows.of(Time.seconds(3),Time.seconds(2))
+      //.timeWindow(Time.seconds(3)) // 滚动窗口
+      //.window(TumblingProcessingTimeWindows.of(Time.seconds(3)))
+      //窗口长度小于滑动步长，不报错
+      .timeWindow(Time.seconds(3), Time.seconds(30)) // 滑动窗口，多传一个 滑动间隔
+      //.window(SlidingProcessingTimeWindows.of(Time.seconds(3), Time.seconds(2))
       //.window(ProcessingTimeSessionWindows.withGap(Time.seconds(3)))
     // 4.聚合
     val resultDS: DataStream[(String, Int)] = dataWS.sum(1)

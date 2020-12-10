@@ -1,7 +1,8 @@
 package com.tian
 
-import java.io.File
+import com.tian.B.a
 
+import java.io.File
 import scala.io.Source
 
 /**
@@ -85,7 +86,7 @@ class RichData(i: Int) {
     def days(s: String): Unit = println(s"$i days" + s)
 }
 
-class B
+//class B
 
 class A[B]
 

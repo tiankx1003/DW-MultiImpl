@@ -1,7 +1,8 @@
 package com.tian.chapter03
 
-import org.apache.flink.api.scala.createTypeInformation
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.api.common.functions.ReduceFunction
+import org.apache.flink.streaming.api.scala._
+import org.apache.flink.streaming.api.windowing.time.Time
 
 
 /**
@@ -11,18 +12,33 @@ import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironm
  */
 object Flink03_Window_AggFunction {
   def main(args: Array[String]): Unit = {
-    //val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-    //val socketSource: DataStream[String] = env.socketTextStream("localhost", 7777)
-    //import org.apache.flink.streaming.api.scala._
-    //val sensorStream: DataStream[SensorReading] = socketSource.map(data => {
-    //    val splits: Array[String] = data.split(",")
-    //    SensorReading(splits(0).trim, splits(1).trim.toLong, splits(2).trim.toDouble)
-    //})
-    //sensorStream
-    //
-    //env.execute("Flink03_Window_AggFunction")
+    val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
+    val socketSource: DataStream[String] = env.socketTextStream("localhost", 9999)
+    val result = socketSource
+      .map(data => {
+        val splits: Array[String] = data.split(",")
+        SensorReading(splits(0).trim, splits(1).trim.toLong, splits(2).trim.toInt)
+      })
+      //.map((_.id,1))
+      .map(data => (data.id, 1))
+      .keyBy(0)
+      .timeWindow(Time.seconds(10))
+      // 使用窗口的增量函数进行聚合
+      .reduce(new ReduceFunction[(String, Int)] {
+        override def reduce(t: (String, Int), t1: (String, Int)) = (t._1, t._2 + t1._2)
+      })
+    result.print()
+    env.execute("Flink03_Window_AggFunction")
+
+
   }
 
-  case class SensorReading(id : String, timestamp: Long, waterLevel: Double)
+  /**
+   *
+   * @param id
+   * @param timestamp
+   * @param waterLevel
+   */
+  case class SensorReading(id: String, timestamp: Long, waterLevel: Int)
 
 }
