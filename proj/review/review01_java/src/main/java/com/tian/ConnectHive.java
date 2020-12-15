@@ -13,10 +13,7 @@ import java.sql.*;
  */
 
 public class ConnectHive {
-    public static void main(String[] args) throws SQLException {
-        System.out.println("hello");
-        // new ConnectHive().showTab();
-    }
+
 
     private static Connection con = null;
     private static Statement state = null;
@@ -27,7 +24,7 @@ public class ConnectHive {
     public void init() throws ClassNotFoundException, SQLException {
         String driverName = "org.apache.hive.jdbc.HiveDriver";
         Class.forName(driverName);
-        String url = "jdbc:hive2://server01:10000/gmall";
+        String url = "jdbc:hive2://server01:10000/";
         con = DriverManager.getConnection(url, "tiankx", "tiankx");
         state = con.createStatement();
     }
@@ -43,6 +40,7 @@ public class ConnectHive {
     // 查询所有数据库
     @Test
     public void showtDb() throws SQLException {
+        if(state == null) return;
         res = state.executeQuery("show databases");
         while (res.next()) {
             System.out.println(res.getString(1));
@@ -289,4 +287,5 @@ public class ConnectHive {
         if (state != null) state.close();
         if (con != null) con.close();
     }
+
 }

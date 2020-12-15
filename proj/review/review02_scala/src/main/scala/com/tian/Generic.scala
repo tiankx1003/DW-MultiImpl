@@ -46,8 +46,8 @@ object Generic {
   def f1[T](a: T, b: T)(implicit ord: Ordering[T]) = if (ord.gt(a, b)) a else b
 
   def f2[T: Ordering](a: T, b: T) = {
-    val ord = Predef.implicitly(())[Ordering[T]]
-    if (ord.gt(a, b)) a else b
+    //val ord = Predef.implicitly(())[Ordering[T]]
+    //if (ord.gt(a, b)) a else b
   }
 
   def print(petContainer: PetContainer[Pet]): Unit = Predef.println(petContainer.pet.name)
