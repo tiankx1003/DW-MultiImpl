@@ -1,3 +1,4 @@
 # /proj/review
 /proj/clickhouse-tutorial
 /.history/
+*.class
