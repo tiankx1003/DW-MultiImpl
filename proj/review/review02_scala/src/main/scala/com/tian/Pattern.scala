@@ -56,7 +56,7 @@ object Pattern {
     }
     println(map2)
     //    (f1 _).apply(100)
-    val f = f1 _
+    //val f = f1 _
     //    f.apply(100)
 
   }

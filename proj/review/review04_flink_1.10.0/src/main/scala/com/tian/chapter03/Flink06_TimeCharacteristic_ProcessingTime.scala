@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironm
 import org.apache.flink.streaming.api.windowing.time.Time
 
 /**
- * @author tiankx 18555991670
+ * @author tiankx
  * @date 2020/12/10 20:587
  * @version 1.0.0
  */
